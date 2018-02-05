@@ -16,6 +16,11 @@ import {
 import DrawerContent from './components/side'
 import Index from './components/index'
 import Dashboard from './components/dashboard'
+import About from './components/about'
+import Partners from './components/partners'
+import MyWorld from './components/myworld'
+import Sustainable from './components/sdgs'
+import Survey from './components/survey'
 import MenuIcon from './assets/images/menu_burger.png';
 
 const reducerCreate = params => {
@@ -45,10 +50,10 @@ export default class App extends React.Component {
                 hideNavBar
                 key="root"
               >
-                <Scene key='index' component={Index} />
+                <Scene key='index' initial component={Index} />
                 <Drawer
-                  initial
                   hideNavBar
+
                   key="drawer"
                   contentComponent={DrawerContent}
                   drawerImage={MenuIcon}
@@ -60,6 +65,11 @@ export default class App extends React.Component {
 
                   <Scene hideNavBar>
                       <Scene key="dashboard" initial component={Dashboard} />
+                      <Scene key="about" component={About} />
+                      <Scene key="partners" component={Partners} />
+                      <Scene key="myworld" component={MyWorld} />
+                      <Scene key="sustainable" component={Sustainable} />
+                      <Scene key="survey" component={Survey} />
                   </Scene>
                 </Drawer>
               </Stack>
