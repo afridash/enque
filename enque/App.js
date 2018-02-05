@@ -1,68 +1,85 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
+import { StyleSheet, AsyncStorage, NetInfo} from 'react-native';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
-var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
-Translation.setConfig(ProviderTypes.Google, key,'ig');
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+  Scene,
+  Router,
+  Actions,
+  Reducer,
+  ActionConst,
+  Overlay,
+  Tabs,
+  Modal,
+  Drawer,
+  Stack,
+  Lightbox,
+} from 'react-native-router-flux';
+import DrawerContent from './components/side'
+import Index from './components/index'
+import Dashboard from './components/dashboard'
+import MenuIcon from './assets/images/menu_burger.png';
 
-export default class App extends Component<{}> {
-  constructor (props) {
-    super (props)
-    this.state = {
-      translated:''
-    }
+const reducerCreate = params => {
+  const defaultReducer = new Reducer(params);
+  return (state, action) => {
+    return defaultReducer(state, action);
+  };
+};
+export default class App extends React.Component {
+  async componentWillMount () {
+    NetInfo.isConnected.addEventListener('connectionChange', this._handleConnectionChange);
   }
-  componentDidMount () {
+  _handleConnectionChange = (isConnected) => {
+    AsyncStorage.setItem('status', isConnected.toString())
+  }
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this._handleConnectionChange)
   }
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <PowerTranslator style={{width:100, height:100}} text={'Good morning'} />
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+      <Router
+        createReducer={reducerCreate}
+        >
+        <Overlay>
+            <Lightbox>
+              <Stack
+                hideNavBar
+                key="root"
+              >
+                <Scene key='index' component={Index} />
+                <Drawer
+                  initial
+                  hideNavBar
+                  key="drawer"
+                  contentComponent={DrawerContent}
+                  drawerImage={MenuIcon}
+                >
+                  {/*
+                    Wrapper Scene needed to fix a bug where the tabs would
+                    reload as a modal ontop of itself
+                  */}
+
+                  <Scene hideNavBar>
+                      <Scene key="dashboard" initial component={Dashboard} />
+                  </Scene>
+                </Drawer>
+              </Stack>
+            </Lightbox>
+        </Overlay>
+      </Router>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+const customStyles = StyleSheet.create({
+  navBarTitle:{
+    color:'#FFFFFF'
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  barButtonTextStyle:{
+      color:'#FFFFFF'
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  barButtonIconStyle:{
+      tintColor:'rgb(255,255,255)'
   },
-});
+  backButtonTextStyle: {
+    tintColor: 'white'
+  },
+})
