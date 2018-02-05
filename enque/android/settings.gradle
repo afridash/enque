@@ -1,0 +1,3 @@
+rootProject.name = 'enque'
+
+include ':app'
