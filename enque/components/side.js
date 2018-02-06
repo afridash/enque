@@ -9,18 +9,12 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  AsyncStorage,
+  TouchableHighlight,
+  Image,
 } from 'react-native';
-import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
-var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
-Translation.setConfig(ProviderTypes.Google, key,'ig');
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu. Side Drawer',
-});
-
+import { Actions } from 'react-native-router-flux'
 export default class Side extends Component<{}> {
   constructor (props) {
     super (props)
@@ -28,21 +22,41 @@ export default class Side extends Component<{}> {
       translated:''
     }
   }
-  componentDidMount () {
+  componentWillMount () {
+    this.checkInternet()
+  }
+  async checkInternet () {
+    var status = await AsyncStorage.getItem('status')
+    if (status === 'true') {
+      this.setState({upload:true})
+    }
   }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <PowerTranslator style={{width:100, height:100}} text={'Good morning'} />
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+        <View style={styles.sdg}>
+          <TouchableHighlight onPress={Actions.sustainable} style={{flex:1.5}}>
+            <View style={{flex:1, flexDirection:'row'}}>
+              <Image source={require('../assets/images/sus.png')} resizeMode={'contain'} style={styles.sdgImage} />
+            </View>
+          </TouchableHighlight>
+        </View>
+        <TouchableHighlight onPress={Actions.dashboard} style={styles.category}>
+          <Text style={styles.text}>Surveys</Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={Actions.myworld} style={styles.category}>
+          <Text style={styles.text}>My World 2030</Text>
+        </TouchableHighlight>
+        <TouchableHighlight onPress={Actions.partners} style={styles.category}>
+          <Text style={styles.text}>Partners</Text>
+        </TouchableHighlight>
+        <TouchableHighlight  style={styles.category} onPress={Actions.about}>
+            <Text style={styles.text}>About Enque</Text>
+        </TouchableHighlight>
+        {this.state.upload &&
+        <View style={styles.upload}>
+          <Text style={styles.uploadButton}>Upload Surveys</Text>
+        </View>}
       </View>
     );
   }
@@ -51,18 +65,50 @@ export default class Side extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  sdg: {
+    flex:1,
+    borderColor:'#15354e',
+    borderTopWidth:25,
+    borderBottomWidth:3,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  sdgImage:{
+    height:100,
+    flex:1,
+  },
+  text: {
+    fontSize:20,
+    flex:1,
+    fontWeight:'400',
+  },
+  category: {
+    flex:0.5,
+    flexDirection:'row',
+    borderColor:'#15354e',
+    padding:15,
+    borderBottomWidth:1,
+  },
+  enque: {
+    flex:1,
+    backgroundColor:'purple'
+  },
+  upload: {
+    flex:2,
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'flex-end'
+  },
+  uploadButton: {
+    backgroundColor:'#1eaaf1',
+    color:'white',
+    fontSize:20,
+    marginBottom:1,
+    alignItems:'center',
+    justifyContent:'center',
+    flex:1,
+    padding:10,
+    textAlign:'center',
+    height:50,
   },
 });

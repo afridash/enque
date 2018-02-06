@@ -1,55 +1,94 @@
-import React, { Component } from 'react';
-import {Platform, StyleSheet,Text,View,Image} from 'react-native';
-import Button from 'apsl-react-native-button'
-import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
-var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
-Translation.setConfig(ProviderTypes.Google, key,'ig');
 
-export default class Survey extends Component<{}> {
+import React, {Component} from 'react'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  FlatList,
+} from 'react-native'
+import Header from './header'
+import Button from 'apsl-react-native-button'
+import {updatePerson, deletePerson, insertPerson, queryAll, deleteAll} from '../databases/schemas'
+import realm from '../databases/schemas'
+export default class Survey extends Component {
   constructor (props) {
     super (props)
     this.state = {
-      translated:''
+      name:'',
+      people:[]
     }
+    realm.addListener('change', ()=> {
+      this.reload()
+    })
   }
   componentDidMount () {
+    this.reload()
   }
-  render() {
+  handleTextChange = text => {
+    this.setState({name:text})
+  }
+  reload () {
+    queryAll().then((people)=> {
+      this.setState({people})
+    }).catch((error)=> {
+      alert('error')
+      this.setState({people:[]})
+    })
+  }
+  savePerson () {
+    const person = {
+      id: Math.floor(Date.now()/1000),
+      name:this.state.name
+    }
+    insertPerson(person).then().catch((error)=> {
+      alert(`Insert error ${error}`)
+    })
+    this.setState({name:''})
+  }
+  deletePerson (personId) {
+    deletePerson(personId).then().catch((error)=> {
+      alert(`Error deleting user ${error}`)
+    })
+  }
+  renderItem = ({item, index})=> {
+    return (
+      <View style={{height:50}}>
+        <Text onPress={()=>this.deletePerson(item.id)}>{item.name}</Text>
+      </View>
+    )
+  }
+  deleteAll() {
+    deleteAll().then().catch((error)=>{
+      alert(`Error deleting all ${error}`)
+    })
+  }
+
+  render () {
     return (
       <View style={styles.container}>
-        <View style={{flex:2}}></View>
-        <View style={{flex:1}}>
-          <Text style={styles.text}>
-            You have successfully completed scanning the survey for this individual
-          </Text>
-        </View>
-        <View style={styles.list}>
-          <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row' }}>
-            <Button style={{backgroundColor:'#1eaaf1', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18}}>Homepage</Button>
-          </View>
-          <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
-            <Button style={{backgroundColor:'#1eaaf1', height:40, width:200, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18}}>Take another Survey</Button>
-          </View>
-        </View>
+        <Header title="Survey" backButton={true} noAdd={true}/>
+        <Text style={styles.start}>Start New</Text>
+        <TextInput style={{borderWidth:1, height:100}} placeholder={'Enter name'} onChangeText={this.handleTextChange} value={this.state.name}/>
+          <Button onPress={()=>this.savePerson()} style={{backgroundColor: '#1eaaf1', borderWidth:0, borderColor:'transparent'}} textStyle={{fontSize: 18, color:'white'}}>
+            Save </Button>
+            <Button onPress={()=>this.deleteAll()} style={{backgroundColor: 'red', borderWidth:0, borderColor:'transparent'}} textStyle={{fontSize: 18, color:'white'}}>
+              Delete </Button>
+            <FlatList
+            data={this.state.people}
+            style={{flex:1}}
+            renderItem={this.renderItem}/>
+
       </View>
-    );
+    )
   }
 }
-
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
+  container:{
+    flex:1
   },
-  list:{
-    backgroundColor:'#F5FCFF',
-    flex:5,
+  start: {
+    marginTop:10,
+    textAlign:'justify'
   },
-  welcome: {
-    fontSize: 30,
-    textAlign: 'center',
-  },
-  text:{
-    fontSize: 20,
-    },
-});
+})

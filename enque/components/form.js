@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Platform, StyleSheet,Text,View,Image, TextInput,Picker, TouchableHighlight} from 'react-native';
 import Button from 'apsl-react-native-button'
 import { Actions } from 'react-native-router-flux';
+import Header from './header'
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
 Translation.setConfig(ProviderTypes.Google, key,'ig');
@@ -18,7 +19,8 @@ export default class Form extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{flex:0.5}}></View>
+        <Header  title='Form' />
+        <View style={styles.secondaryContainer}>
         <View style={{flex:1}}>
           <Text style={styles.welcome}>
             Almost There...
@@ -41,10 +43,10 @@ export default class Form extends Component<{}> {
             <TextInput style={{flex:1}} placeholder='City/Town'/>
           </View>
           <View style={{flex:1,borderBottomWidth:1,marginBottom:20,flexDirection:'row',alignItems:'center'}}>
-            <Image source={require('../assets/images/eight.jpg')} style={styles.home}/>
+            <Image source={require('../assets/images/18.png')} style={styles.home}/>
             <TextInput style={{flex:1}} placeholder='Age'/>
           </View>
-          <TouchableHighlight style={{flex:1,borderBottomWidth:1,marginBottom:20,flexDirection:'row',alignItems:'center'}} onPress={Actions.dashboard}>
+          <TouchableHighlight style={{flex:1,borderBottomWidth:1,marginBottom:20,flexDirection:'row',alignItems:'center'}} onPress={Actions.countries}>
             <View style={{flex:1,flexDirection:'row', justifyContent:'space-between'}} >
               <View style={{flex:1, flexDirection:'row',alignItems:'center'}}>
                 <Image source={require('../assets/images/loc.png')} style={styles.home}/>
@@ -60,9 +62,9 @@ export default class Form extends Component<{}> {
           </View>
         </View>
         <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
-          <Button style={{backgroundColor:'#1eaaf1', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18}}>Submit</Button>
+          <Button style={styles.submit} textStyle={{fontSize: 18, color:'white'}} onPress={Actions.subscribe}>Submit</Button>
         </View>
-
+      </View>
       </View>
 
     );
@@ -72,16 +74,24 @@ export default class Form extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: 10,
-
+  },
+  secondaryContainer: {
+    flex: 1,
+    margin:10,
   },
   list:{
-
     flex:2,
   },
   welcome: {
     fontSize: 30,
     textAlign: 'center',
+  },
+  submit:{
+    backgroundColor:'#1eaaf1',
+     height:40,
+    width:100,
+    borderColor:'transparent',
+    margin: 10,
   },
   home:{
     resizeMode: 'contain',

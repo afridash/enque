@@ -5,8 +5,15 @@
  */
 
 import React, { Component } from 'react';
-import {Platform, StyleSheet,Text,View} from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
+import Header from './header'
 var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
 Translation.setConfig(ProviderTypes.Google, key,'ig');
 const instructions = Platform.select({
@@ -28,16 +35,20 @@ export default class Dashboard extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <PowerTranslator style={{width:100, height:100}} text={'Good morning'} />
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+        <Header title='Surveys' upload={true} />
+        <View style={styles.secondaryContainer}>
+          <Text style={styles.welcome}>
+            Welcome to React Native!
+          </Text>
+          <Text style={styles.instructions}>
+            To get started, edit App.js
+          </Text>
+          <PowerTranslator style={{width:100, height:100}} text={'Good morning'} />
+          <Text style={styles.instructions}>
+            {instructions}
+          </Text>
+        </View>
+
       </View>
     );
   }
@@ -46,6 +57,9 @@ export default class Dashboard extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  secondaryContainer: {
+    flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',

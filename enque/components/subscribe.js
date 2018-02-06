@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet,Text,View,Image} from 'react-native';
+import {Platform, StyleSheet,Text,View,Image, TextInput} from 'react-native';
 import Button from 'apsl-react-native-button'
+import Header from './header'
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
 Translation.setConfig(ProviderTypes.Google, key,'ig');
@@ -17,7 +18,8 @@ export default class Subscribe extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{flex:0.5}}></View>
+        <Header backButton={true} title='Subscribe' />
+        <View style={{margin:10, flex:1}}>
         <View style={{flex:1}}>
           <Text style={styles.welcome}>
              Thank you for Voting
@@ -27,16 +29,19 @@ export default class Subscribe extends Component<{}> {
           </Text>
         </View>
         <View style={styles.list}>
-          <View style={{flex:0.5, borderBottomWidth:1}}>
-            <Text>Email Address:</Text>
+          <View style={{flex:1, borderBottomWidth:1,marginBottom:20, flexDirection:'row', alignItems:'center'}}>
+            <Text >Email address: &nbsp; &nbsp;</Text>
+            <TextInput style={{flex:1}} placeholder='Email'/>
           </View>
-          <View style={{flex:0.5,borderBottomWidth:1}}>
-            <Text>Mobile Number:</Text>
+          <View style={{flex:1, borderBottomWidth:1,marginBottom:20, flexDirection:'row', alignItems:'center'}}>
+            <Text >Mobile Number:&nbsp; &nbsp;</Text>
+            <TextInput style={{flex:1}} placeholder='Mobile Number'/>
           </View>
         </View>
         <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:2}}>
-          <Button style={{backgroundColor:'#1eaaf1', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18}}>Subscribe</Button>
+          <Button style={{backgroundColor:'#1eaaf1', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}}>Subscribe</Button>
         </View>
+      </View>
       </View>
     );
   }
@@ -45,10 +50,8 @@ export default class Subscribe extends Component<{}> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
   },
   list:{
-    backgroundColor:'#F5FCFF',
     flex:1,
   },
   welcome: {
