@@ -12,7 +12,7 @@ export default class Countries extends Component<{}> {
     super (props)
     this.state = {
       data:[
-       {key:1, name:'Nigeria'}, 
+       {key:1, name:'Nigeria'},
        {key:2, name:'Ghana'},
        {key:3, name:'Niger'},
        {key:4, name:'Senegal'},
@@ -22,8 +22,8 @@ export default class Countries extends Component<{}> {
   }
   componentDidMount () {
   }
-  _onPressItem (index) {
-
+  _onPressItem (item) {
+     return Actions.pop({refresh: {country:item.name, done:false}})
   }
   _renderItem = ({ item, index }) => {
     return (
@@ -31,16 +31,16 @@ export default class Countries extends Component<{}> {
       style={styles.listItem}
     >
       <View style={{flex:1}}>
-        <Text onPress={()=>this._onPressItem(index)} style={[styles.listText]}> {item.name}</Text>
+        <Text onPress={()=>this._onPressItem(item)} style={[styles.listText]}> {item.name}</Text>
       </View>
 
     </View>
       )
    }
-  render() {
+  render (){
     return (
       <View style={styles.container}>
-        <Header backButton={true} title='Countries' />
+        <Header backButton={true} noAdd={true} title='Countries' />
         <View style={styles.secondaryContainer}>
         <View style={{flex:1}}>
           <View style={styles.inputContainer} >

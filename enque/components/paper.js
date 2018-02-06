@@ -3,6 +3,7 @@ import {Platform, StyleSheet,Text,View,Image} from 'react-native';
 import Button from 'apsl-react-native-button'
 import Header from './header'
 import { Actions } from 'react-native-router-flux';
+import vision from 'react-cloud-vision-api'
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
 Translation.setConfig(ProviderTypes.Google, key,'ig');

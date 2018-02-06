@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet,Text,View,Image, TextInput} from 'react-native';
+import {Platform,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  KeyboardAvoidingView,
+  ScrollView,
+  TextInput} from 'react-native';
 import Button from 'apsl-react-native-button'
 import Header from './header'
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
@@ -17,8 +24,9 @@ export default class Subscribe extends Component<{}> {
   }
   render() {
     return (
-      <View style={styles.container}>
-        <Header backButton={true} title='Subscribe' />
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : null} style={styles.container}>
+        <Header noAdd={true} title='Subscribe' />
+        <ScrollView style={styles.container}>
         <View style={{margin:10, flex:1}}>
         <View style={{flex:1}}>
           <Text style={styles.welcome}>
@@ -42,7 +50,8 @@ export default class Subscribe extends Component<{}> {
           <Button style={{backgroundColor:'#1eaaf1', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}}>Subscribe</Button>
         </View>
       </View>
-      </View>
+      </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }

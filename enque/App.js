@@ -58,7 +58,7 @@ export default class App extends React.Component {
                 hideNavBar
                 key="root"
               >
-                <Scene key='index'  component={Index} />
+                <Scene key='index' component={Index} />
                 <Drawer
                   hideNavBar
                   initial
@@ -72,7 +72,7 @@ export default class App extends React.Component {
                   */}
 
                   <Scene hideNavBar>
-                      <Scene key="dashboard" initial  component={Dashboard} />
+                      <Scene key="dashboard" initial component={Dashboard} />
                       <Scene key="about" component={About} />
                       <Scene key="form"   component={Form}/>
                       <Scene key="submit"  component={Submit} />
@@ -81,9 +81,9 @@ export default class App extends React.Component {
                       <Scene key="myworld" component={MyWorld} />
                       <Scene key="sustainable" component={Sustainable} />
                       <Scene key="survey" component={Survey} />
-                      <Scene key='survey1'  component={SurveyPage1} />
+                      <Scene key='survey1' component={SurveyPage1} />
                       <Scene key='survey2'  component={SurveyPage2} />
-                      <Scene key="countries" component={Countries} />
+                      <Scene key="countries"  component={Countries} />
                       <Scene key="papersurvey" component={PaperSurvey} />
                       <Scene key="paper" component={Paper} />
                   </Scene>
