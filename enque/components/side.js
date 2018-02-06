@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     borderColor:'#15354e',
     padding:15,
     borderBottomWidth: (Platform.OS === 'ios') ? 1 : 0.5,
+
   },
   enque: {
     flex:1,

@@ -10,6 +10,10 @@
   },
   "dependencies": {
     "apsl-react-native-button": "^3.1.0",
+<<<<<<< HEAD
+=======
+    "node-pre-gyp": "^0.6.39",
+>>>>>>> origin/survey
     "react": "16.2.0",
     "react-native": "0.52.2",
     "react-native-animatable": "^1.2.4",
