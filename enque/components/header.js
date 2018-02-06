@@ -54,7 +54,7 @@ export default class Header extends Component {
             source={require('../assets/images/upload.png')}
             style={[styles.backButton]} />
           </TouchableWithoutFeedback>}
-        {!this.props.noAdd && <TouchableWithoutFeedback  onPress={Actions.survey}>
+        {!this.props.noAdd && <TouchableWithoutFeedback  onPress={Actions.survey1}>
           <View style={{flexDirection:'row', margin:15, justifyContent:'flex-start'}}>
               <Text style={styles.addText}>Add</Text>
               <Image

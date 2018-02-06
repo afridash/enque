@@ -21,6 +21,8 @@ import Partners from './components/partners'
 import MyWorld from './components/myworld'
 import Sustainable from './components/sdgs'
 import Survey from './components/survey'
+import SurveyPage1 from './components/surveyPage1'
+import SurveyPage2 from './components/surveyPage2'
 import MenuIcon from './assets/images/menu_burger.png';
 
 const reducerCreate = params => {
@@ -51,6 +53,7 @@ export default class App extends React.Component {
                 key="root"
               >
                 <Scene key='index' initial component={Index} />
+
                 <Drawer
                   hideNavBar
 
@@ -70,6 +73,7 @@ export default class App extends React.Component {
                       <Scene key="myworld" component={MyWorld} />
                       <Scene key="sustainable" component={Sustainable} />
                       <Scene key="survey" component={Survey} />
+                      <Scene key='survey1' component={SurveyPage1} />
                   </Scene>
                 </Drawer>
               </Stack>
