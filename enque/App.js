@@ -16,6 +16,9 @@ import {
 import DrawerContent from './components/side'
 import Index from './components/index'
 import Dashboard from './components/dashboard'
+import Form from './components/form'
+import Subscribe from './components/subscribe'
+import Survey from './components/survey'
 import MenuIcon from './assets/images/menu_burger.png';
 
 const reducerCreate = params => {
@@ -60,6 +63,8 @@ export default class App extends React.Component {
 
                   <Scene hideNavBar>
                       <Scene key="dashboard" initial component={Dashboard} />
+                      <Scene key="form" initial component={Form}/>
+                      
                   </Scene>
                 </Drawer>
               </Stack>

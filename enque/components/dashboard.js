@@ -5,12 +5,7 @@
  */
 
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import {Platform, StyleSheet,Text,View} from 'react-native';
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
 Translation.setConfig(ProviderTypes.Google, key,'ig');
