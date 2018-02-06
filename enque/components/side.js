@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     borderBottomWidth:3,
   },
   sdgImage:{
-    height:150,
+    height:100,
     flex:1,
   },
   text: {
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
     flex:0.5,
     flexDirection:'row',
     borderColor:'#15354e',
-    padding:10,
-    borderBottomWidth:3,
+    padding:15,
+    borderBottomWidth:1,
   },
   enque: {
     flex:1,

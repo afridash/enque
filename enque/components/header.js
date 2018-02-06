@@ -104,7 +104,7 @@ const styles = {
   navBar: {
     borderColor:'#15354e',
     backgroundColor: '#1c4868',
-    borderTopWidth:20,
+    borderTopWidth: (Platform.OS === 'ios') ? 20 : 0,
     borderBottomWidth:0.5,
     shadowColor:'#000000',
     shadowOffset:{width: 5, height: 5},

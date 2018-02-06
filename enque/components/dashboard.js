@@ -9,7 +9,7 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';

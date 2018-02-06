@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Image
+  Image,
+  StatusBar,
 } from 'react-native';
 
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
@@ -32,8 +33,8 @@ export default class Index extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor={'#15354e'} barStyle='light-content' />
         <Image source={require('../assets/images/icon.png')} resizeMode={'contain'} style={styles.logo} />
-
         <View style={styles.app}>
           <Text style={styles.title}>
             Enque
@@ -58,13 +59,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#1d4869',
   },
   logo: {
-    flex:2.5,
+    flex:2,
     alignItems:'center',
     justifyContent:'center',
     margin: 10,
   },
   app: {
-    flex:1,
+    flex:1.2,
   },
   title: {
     textAlign: 'center',
