@@ -22,13 +22,7 @@ import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-
 import SurveyPage2 from './surveyPage2'
 import Header from './header'
 var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
-Translation.setConfig(ProviderTypes.Google, key,'ig');
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu. Dashboard',
-});
+Translation.setConfig(ProviderTypes.Google, key,'ig')
 
 export default class SurveyPage1 extends Component<{}> {
   constructor (props) {
@@ -46,11 +40,11 @@ export default class SurveyPage1 extends Component<{}> {
         </Text>
         <View style={{flexDirection:'row'}}>
           <View style={{flexDirection:'row', margin:50}}>
-            <Text style={{fontSize:20}}>YES</Text>
+            <Text style={{fontSize:20}}>YES </Text>
             <RadioButton
               animation={'bounceIn'}
               isSelected = {this.state.chosen}
-              onPress={() => this.setState({chosen:!this.state.chosen, selected:false})}
+              onPress={() => this.setState({chosen:!this.state.chosen, selected:false, status:'yes'})}
             />
           </View>
 
@@ -58,9 +52,9 @@ export default class SurveyPage1 extends Component<{}> {
             <RadioButton
               animation={'bounceIn'}
               isSelected = {this.state.selected}
-              onPress={() => this.setState({selected:!this.state.selected, chosen:false})}
+              onPress={() => this.setState({selected:!this.state.selected, chosen:false, status:'no'})}
             />
-            <Text style={{fontSize:20}}>N0</Text>
+            <Text style={{fontSize:20}}> N0</Text>
           </View>
         </View>
         <View style={styles.info}>
@@ -77,7 +71,7 @@ export default class SurveyPage1 extends Component<{}> {
           return (
             <Button
               onPress={()=>this.setState({showNext:true})}
-              title="NEXT"
+              title="Continue"
               color="#e53935"
               accessibilityLabel="This button takes you to the next page"
             />
@@ -93,7 +87,7 @@ export default class SurveyPage1 extends Component<{}> {
         <Header title='New Survey' backButton={true} noAdd={true} />
         <View style={styles.secondaryContainer}>
           {this.state.showNext ?
-          <SurveyPage2 /> : this.showPage1 () }
+          <SurveyPage2 status={this.state.status} /> : this.showPage1 () }
         </View>
       </View>
     );
