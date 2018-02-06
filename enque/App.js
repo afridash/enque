@@ -16,6 +16,8 @@ import {
 import DrawerContent from './components/side'
 import Index from './components/index'
 import Dashboard from './components/dashboard'
+import SurveyPage1 from './components/surveyPage1'
+import SurveyPage2 from './components/surveyPage2'
 import MenuIcon from './assets/images/menu_burger.png';
 
 const reducerCreate = params => {
@@ -45,9 +47,8 @@ export default class App extends React.Component {
                 hideNavBar
                 key="root"
               >
-                <Scene key='index' component={Index} />
+                <Scene key='index' initial component={SurveyPage1} />
                 <Drawer
-                  initial
                   hideNavBar
                   key="drawer"
                   contentComponent={DrawerContent}
