@@ -10,6 +10,7 @@ import {
   StyleSheet,
   Text,
   View,
+  FlatList,
 } from 'react-native';
 
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
@@ -22,33 +23,46 @@ const instructions = Platform.select({
   android: 'Double tap R on your keyboard to reload,\n' +
     'Shake or press menu button for dev menu. Dashboard',
 });
-
+//  <PowerTranslator style={{width:100, height:100}} text={'Good morning'} />
 export default class Dashboard extends Component<{}> {
   constructor (props) {
     super (props)
     this.state = {
-      translated:''
+      translated:'',
+      surveys:[{key:1, name:'Richard Igbiriki'},
+      {key:2, name:'Richard Igbiriki'},
+      {key:3, name:'Richard Igbiriki'},
+      {key:7, name:'Richard Igbiriki'},
+      {key:8, name:'Richard Igbiriki'},
+      {key:9, name:'Richard '},
+      {key:10, name:'Richard Imorobebh'},
+      {key:11, name:'Richard Imorobebh'},
+      {key:12, name:'Richard Imorobebh'},
+      {key:13, name:'Richard Imorobebh'},
+      {key:14, name:'Richard Imorobebh'},
+      {key:15, name:'Richard Imorobebh'},
+      {key:16, name:'Richard Imorobebh'},
+      {key:17, name:'Richard Imorobebh'}, ]
     }
   }
-  componentDidMount () {
+  renderItem = ({item, index}) => {
+    return (
+      <View style={{backgroundColor: index%2 ===0 ? '#90caf9' : '#bbdefb', padding:20, flexDirection:'row', justifyContent:'space-between'}}>
+        <Text>{item.name}</Text>
+        <Text>7 mins</Text>
+      </View>
+    )
   }
-  render() {
+  render () {
     return (
       <View style={styles.container}>
         <Header title='Surveys' upload={true} />
         <View style={styles.secondaryContainer}>
-          <Text style={styles.welcome}>
-            Welcome to React Native!
-          </Text>
-          <Text style={styles.instructions}>
-            To get started, edit App.js
-          </Text>
-          <PowerTranslator style={{width:100, height:100}} text={'Good morning'} />
-          <Text style={styles.instructions}>
-            {instructions}
-          </Text>
+          <FlatList
+          style={{flex:1, marginTop:2}}
+          data={this.state.surveys}
+          renderItem={this.renderItem}/>
         </View>
-
       </View>
     );
   }
@@ -60,8 +74,6 @@ const styles = StyleSheet.create({
   },
   secondaryContainer: {
     flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
   welcome: {
