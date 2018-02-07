@@ -19,7 +19,7 @@ export default class Submit extends Component<{}> {
   render() {
     return (
       <View style={styles.container}>
-        <Header backButton={true} title='Submit' />
+        <Header backButton={true} title='Submit' noAdd={true} />
         <View style={{flex:2}}></View>
         <View style={{flex:1}}>
           <Text style={styles.text}>
@@ -31,7 +31,7 @@ export default class Submit extends Component<{}> {
             <Button onPress={Actions.dashboard} style={{backgroundColor:'#1eaaf1', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18}}>Homepage</Button>
           </View>
           <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
-            <Button onPress={Actions.survey} style={{backgroundColor:'#1eaaf1', height:40, width:200, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18}}>Take another Survey</Button>
+            <Button onPress={()=>Actions.replace('paper')} style={{backgroundColor:'#1eaaf1', height:40, width:200, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18}}>Take another Survey</Button>
           </View>
         </View>
       </View>

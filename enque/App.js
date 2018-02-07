@@ -60,9 +60,10 @@ export default class App extends React.Component {
                 hideNavBar
                 key="root"
               >
-                <Scene key='index' initial component={Index} />
+                <Scene key='index' component={Index} />
                 <Drawer
                   hideNavBar
+                  initial
                   key="drawer"
                   contentComponent={DrawerContent}
                   drawerImage={MenuIcon}
@@ -73,7 +74,7 @@ export default class App extends React.Component {
                   */}
 
                   <Scene hideNavBar>
-                      <Scene key="dashboard" initial component={Dashboard} />
+                      <Scene key="dashboard" component={Dashboard} />
                       <Scene key="login" component={Login} />
                       <Scene key="about" component={About} />
                       <Scene key="form"   component={Form}/>

@@ -6,6 +6,7 @@
 
 import React, { Component } from 'react';
 import RadioButton from 'react-native-radio-button';
+import RadioForm, {RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import * as Animatable from 'react-native-animatable';
 import {
   Platform,
@@ -23,6 +24,13 @@ import Button from 'apsl-react-native-button'
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
 Translation.setConfig(ProviderTypes.Google, key,'ig');
+var radio_props = [
+  {label: '1', value: 1 },
+  {label: '2', value: 2 },
+  {label: '3', value: 3 },
+  {label: '4', value: 4 },
+  {label: '5', value: 5 },
+];
 var sdgImages = [
   {
     key:1,
@@ -167,7 +175,8 @@ export default class SurveyPage2 extends Component<{}> {
     this.state = {
       translated:'',
       images:sdgImages,
-      selectedImages:[]
+      selectedImages:[],
+      value:0,
     }
     this.selected = 0
     this.selectedImages = []
@@ -181,6 +190,9 @@ export default class SurveyPage2 extends Component<{}> {
     if (status === 'true') {
       this.setState({upload:true})
     }
+  }
+  componentWillUnmount () {
+    this.setState({images:[], selectedImages:[]})
   }
   toggleSelected (item, index) {
      if (item.selected) {
@@ -204,10 +216,8 @@ export default class SurveyPage2 extends Component<{}> {
     clone[index] = item
     await this.setState({images:clone})
   }
-  handleRadio (name, sdgId, score) {
+  handleRadio (sdgId, score) {
     this.feedbacks[sdgId] = score
-    this.setState({[name] : !this.state[name],
-    })
   }
   renderItem = ({item, index}) => {
     return (
@@ -236,54 +246,18 @@ export default class SurveyPage2 extends Component<{}> {
           <Text>3. Stayed the same </Text>
           <Text>5. Got better</Text>
         </View>
-        <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-          <View style={{flexDirection:'row', margin:5}}>
-            <Text style={{fontSize:16}}>1</Text>
-            <RadioButton
-              animation={'bounceIn'}
-              name={'goal'+item.key+'_1'}
-              isSelected = {this.state['goal'+item.key+'_1']}
-              onPress={()=>this.handleRadio('goal'+item.key+'_1', item.key, 1)}
-            />
-          </View>
-          <View style={{flexDirection:'row', margin:5}}>
-            <RadioButton
-              animation={'bounceIn'}
-              name={'goal'+item.key+'_2'}
-              isSelected = {this.state['goal'+item.key+'_2']}
-              onPress={()=>this.handleRadio('goal'+item.key+'_2', item.key, 2)}
-            />
-            <Text style={{fontSize:16}}> 2</Text>
-          </View>
-          <View style={{flexDirection:'row', margin:5}}>
-            <RadioButton
-              animation={'bounceIn'}
-              name={'goal'+item.key+'_3'}
-              isSelected = {this.state['goal'+item.key+'_3']}
-              onPress={()=>this.handleRadio('goal'+item.key+'_3', item.key, 3)}
-            />
-            <Text style={{fontSize:16}}> 3</Text>
-          </View>
-          <View style={{flexDirection:'row', margin:5}}>
-            <RadioButton
-              animation={'bounceIn'}
-              name={'goal'+item.key+'_4'}
-              isSelected = {this.state['goal'+item.key+'_4']}
-              onPress={()=>this.handleRadio('goal'+item.key+'_4', item.key, 4)}
-            />
-            <Text style={{fontSize:16}}> 4</Text>
-          </View>
-          <View style={{flexDirection:'row', margin:5}}>
-            <RadioButton
-              animation={'bounceIn'}
-              isSelected = {this.state['goal'+item.key+'_5']}
-              name={'goal'+item.key+'_5'}
-              onPress={()=>this.handleRadio('goal'+item.key+'_5', item.key, 5)}
-            />
-            <Text style={{fontSize:16}}> 5</Text>
+        <View style={{flex:1, padding:10, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+          <RadioForm
+            style={{flex:1, flexDirection:'row'}}
+            formHorizontal={true}
+            labelHorizontal={true}
+            animation={true}
+            radio_props={radio_props}
+            initial={0}
+            onPress={(value) => this.handleRadio(value, item.key)}
+          />
           </View>
         </View>
-      </View>
     )
   }
   showList () {
@@ -393,7 +367,7 @@ export default class SurveyPage2 extends Component<{}> {
       q3_goal16: q3_goal16,
       q3_goal17: q3_goal17,
     }
-    return Actions.form({'data':data})
+    Actions.replace('form', {data:data})
     /*
     console.log('Q1', q1)
 

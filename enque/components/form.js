@@ -44,53 +44,70 @@ export default class Form extends Component<{}> {
     }
   }
   async submit () {
+    this.setState({isLoading:true})
     var data = this.props.data
-    if (this.state.disability === '0') {
-      data['disability'] = 'no'
-      data['disability_type'] = 0
-    }else {
-      data['disability'] = 'yes'
-      data['disability_type'] = Number(this.state.disability)
-    }
-    data['gender'] = this.state.gender
-    data['education_level'] = Number(this.state.education)
-    data['city'] = this.state.city
-    data['age'] = Number(this.state.age)
-    data['country'] = this.state.country
-    data['partner_id'] = 'Afridash Inc'
-    data['user_id'] = 'Richard_igbiriki'
-    data['start'] = Date.now()
-    data['end'] = Date.now()
-    data['method'] = 'online'
-    data['submission_date'] = Date.now()
-    data['id'] = Math.floor(Date.now()/1000)
-    if (this.state.upload) {
-      let response = await fetch('https://afridash.com/enque/saveToMysql.php',{
-        method:'POST',
-        headers:{
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(data)
-      })
-      let responseJson = await response.json()
-      if (responseJson.success === '1') {
-        alert('Saved!')
+    var auth = this.authenticateData()
+    if (auth) {
+      if (this.state.disability === '0') {
+        data['disability'] = 'no'
+        data['disability_type'] = 0
       }else {
-        alert(responseJson.success)
+        data['disability'] = 'yes'
+        data['disability_type'] = Number(this.state.disability)
+      }
+      data['gender'] = this.state.gender
+      data['education_level'] = Number(this.state.education)
+      data['city'] = this.state.city
+      data['age'] = Number(this.state.age)
+      data['country'] = this.state.country
+      data['partner_id'] = 'Afridash Inc'
+      data['user_id'] = 'Richard_igbiriki'
+      data['start'] = Date.now()
+      data['end'] = Date.now()
+      data['method'] = 'online'
+      data['submission_date'] = Date.now()
+      data['id'] = Math.floor(Date.now()/1000)
+      if (this.state.upload) {
+        this.saveOnline(data)
+      }else {
         insertSurvey(data).then(()=>{
+          this.setState({isLoading:false})
           return Actions.subscribe()
         }).catch((error)=> {
+          this.setState({isLoading:false})
            alert(`Insert error ${error}`)
         })
       }
     }else {
+      alert('Incomplete form. Fill all fields.')
+    }
+
+  }
+  authenticateData () {
+    return this.state.disability && this.state.gender && this.state.education && this.state.age && this.state.country && this.state.city
+  }
+  async saveOnline (data) {
+    let response = await fetch('https://afridash.com/enque/saveToMysql.php',{
+      method:'POST',
+      headers:{
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    let responseJson = await response.json()
+    if (responseJson.success === '1') {
+      this.setState({isLoading:false})
+      return Actions.subscribe()
+    }else {
+      alert(responseJson.success)
       insertSurvey(data).then(()=>{
+        this.setState({isLoading:false})
         return Actions.subscribe()
       }).catch((error)=> {
+        this.setState({isLoading:false})
          alert(`Insert error ${error}`)
       })
     }
-
   }
   render() {
     return (
@@ -162,7 +179,7 @@ export default class Form extends Component<{}> {
             </View>
           </View>
         <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
-          <Button style={styles.submit} textStyle={{fontSize: 18, color:'white'}} onPress={()=>this.submit()}>Submit</Button>
+          <Button isLoading={this.state.isLoading} style={styles.submit} textStyle={{fontSize: 18, color:'white'}} onPress={()=>this.submit()}>Submit</Button>
         </View>
       </View>
     </ScrollView>

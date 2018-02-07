@@ -25,7 +25,7 @@ export default class Login extends React.Component {
   login () {
     this.setState({isLoading:true})
     if (this.state.email === 'sdg@sdg.com' && this.state.password === 'pass'){
-        return Actions.entryMethod()
+        return Actions.reset('entryMethod')
     }else {
       alert('Wrong email/password combination')
       this.setState({isLoading:false})

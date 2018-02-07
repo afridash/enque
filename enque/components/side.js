@@ -67,25 +67,25 @@ export default class Side extends Component<{}> {
     return (
       <View style={styles.container}>
         <View style={styles.sdg}>
-          <TouchableHighlight onPress={Actions.sustainable} style={{flex:1.5}}>
+          <TouchableHighlight onPress={()=>Actions.replace('sustainable')} style={{flex:1.5}}>
             <View style={{flex:1, flexDirection:'row'}}>
               <Image source={require('../assets/images/sus.png')} resizeMode={'contain'} style={styles.sdgImage} />
             </View>
           </TouchableHighlight>
         </View>
-        <TouchableHighlight onPress={Actions.entryMethod} style={styles.category}>
+        <TouchableHighlight onPress={()=>Actions.replace('entryMethod')} style={styles.category}>
           <Text style={styles.text}>Home</Text>
         </TouchableHighlight>
-        <TouchableHighlight onPress={Actions.dashboard} style={styles.category}>
+        <TouchableHighlight onPress={()=>Actions.replace('dashboard')} style={styles.category}>
           <Text style={styles.text}>Surveys</Text>
         </TouchableHighlight>
-        <TouchableHighlight onPress={Actions.myworld} style={styles.category}>
+        <TouchableHighlight onPress={()=>Actions.replace('myworld')} style={styles.category}>
           <Text style={styles.text}>My World 2030</Text>
         </TouchableHighlight>
-        <TouchableHighlight onPress={Actions.partners} style={styles.category}>
+        <TouchableHighlight onPress={()=>Actions.replace('partners')} style={styles.category}>
           <Text style={styles.text}>Partners</Text>
         </TouchableHighlight>
-        <TouchableHighlight  style={styles.category} onPress={Actions.about}>
+        <TouchableHighlight  style={styles.category} onPress={()=>Actions.replace('about')}>
             <Text style={styles.text}>About Enque</Text>
         </TouchableHighlight>
         {this.state.upload &&
