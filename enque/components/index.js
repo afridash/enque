@@ -35,16 +35,16 @@ export default class Index extends Component<{}> {
       <View style={styles.container}>
         <StatusBar backgroundColor={'#15354e'} barStyle='light-content' />
         <Image source={require('../assets/images/icon.png')} resizeMode={'contain'} style={styles.logo} />
+        <Text style={styles.title}>
+          Enque
+        </Text>
+        <Text style={styles.subtitle}>
+          ~Voices Heard~
+        </Text>
+        <Button onPress={Actions.login} style={{backgroundColor: '#1eaaf1', borderWidth:0, borderColor:'transparent', margin:70}} textStyle={{fontSize: 20, color:'white'}}>
+          Begin
+        </Button>
         <View style={styles.app}>
-          <Text style={styles.title}>
-            Enque
-          </Text>
-          <Text style={styles.subtitle}>
-            ~Voices Heard~
-          </Text>
-          <Button onPress={Actions.dashboard} style={{backgroundColor: '#1eaaf1', borderWidth:0, borderColor:'transparent'}} textStyle={{fontSize: 18, color:'white'}}>
-            Begin
-          </Button>
         </View>
       </View>
     );
@@ -59,18 +59,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#1d4869',
   },
   logo: {
-    flex:2,
+    flex:3,
     alignItems:'center',
     justifyContent:'center',
-    margin: 10,
+    marginTop: 30,
   },
   app: {
-    flex:1.2,
+    flex:1.5,
   },
   title: {
     textAlign: 'center',
     color: 'white',
-    marginBottom: 10,
     fontSize:50
   },
   subtitle: {

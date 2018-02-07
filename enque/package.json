@@ -16,6 +16,8 @@
     "react-cloud-vision-api": "^0.3.0",
     "react-native": "0.52.2",
     "react-native-animatable": "^1.2.4",
+    "react-native-button": "^2.2.0",
+    "react-native-keyboard-aware-scroll-view": "^0.4.3",
     "react-native-power-translator": "^1.0.0",
     "react-native-radio-button": "^2.0.1",
     "react-native-router-flux": "^4.0.0-beta.28",

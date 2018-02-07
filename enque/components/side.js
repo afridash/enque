@@ -41,6 +41,9 @@ export default class Side extends Component<{}> {
             </View>
           </TouchableHighlight>
         </View>
+        <TouchableHighlight onPress={Actions.entryMethod} style={styles.category}>
+          <Text style={styles.text}>Home</Text>
+        </TouchableHighlight>
         <TouchableHighlight onPress={Actions.dashboard} style={styles.category}>
           <Text style={styles.text}>Surveys</Text>
         </TouchableHighlight>

@@ -47,6 +47,18 @@ export default class Header extends Component {
             })()
           }
         </View>
+        <View style={{flexDirection: 'row', flex:1}}>
+          {
+            (()=>{
+              if (this.props.icon) {
+                return (
+                  <Image
+                    source={require('../assets/images/icon.png')}
+                    style={[styles.icon]} />)
+              }
+            })()
+          }
+        </View>
       {this.props.title && <View style={styles.titleContainer}><Text style={[styles.title]}>{this.props.title}</Text></View>}
       <View style={styles.actions}>
         {this.state.upload && this.props.title ==='Surveys' && <TouchableWithoutFeedback  onPress={()=>Actions.pop({refresh: {done: true}})}>
@@ -131,5 +143,14 @@ const styles = {
     fontSize:21,
     color:'white',
     fontWeight:'700'
+  },
+  icon: {
+    width:50,
+    height:50,
+    margin:5,
+    justifyContent:'center',
+    alignItems: 'center',
+    resizeMode:'contain',
+    flex:1,
   },
 };

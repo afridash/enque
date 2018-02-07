@@ -22,6 +22,8 @@ import Subscribe from './components/subscribe'
 import About from './components/about'
 import Partners from './components/partners'
 import MyWorld from './components/myworld'
+import Login from './components/login'
+import EntryMethod from './components/entryMethod'
 import Sustainable from './components/sdgs'
 import Survey from './components/survey'
 import SurveyPage1 from './components/surveyPage1'
@@ -72,12 +74,14 @@ export default class App extends React.Component {
                   */}
 
                   <Scene hideNavBar>
-                      <Scene key="dashboard" initial component={Dashboard} />
+                      <Scene key="login" component={Login} />
                       <Scene key="about" component={About} />
                       <Scene key="form"   component={Form}/>
                       <Scene key="submit"  component={Submit} />
                       <Scene key="subscribe"  component={Subscribe} />
                       <Scene key="partners" component={Partners} />
+                      <Scene key="entryMethod" initial component={EntryMethod} />
+                      <Scene key="dashboard"  component={Dashboard} />
                       <Scene key="myworld" component={MyWorld} />
                       <Scene key="sustainable" component={Sustainable} />
                       <Scene key="survey" component={Survey} />
