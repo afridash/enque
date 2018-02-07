@@ -83,7 +83,7 @@ export default class App extends React.Component {
                       <Scene key="survey" component={Survey} />
                       <Scene key='survey1' component={SurveyPage1} />
                       <Scene key='survey2'  component={SurveyPage2} />
-                      <Scene key="countries"  component={Countries} />
+                      <Scene key="countries"   component={Countries} />
                       <Scene key="papersurvey" component={PaperSurvey} />
                       <Scene key="paper" component={Paper} />
                   </Scene>

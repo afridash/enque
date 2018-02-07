@@ -12,12 +12,12 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   ScrollView,
   FlatList,
   Image,
   TouchableOpacity,
 } from 'react-native';
+import Button from 'apsl-react-native-button'
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 import SurveyPage2 from './surveyPage2'
 import Header from './header'
@@ -69,12 +69,8 @@ export default class SurveyPage1 extends Component<{}> {
       {(()=>{
         if (this.state.selected || this.state.chosen) {
           return (
-            <Button
-              onPress={()=>this.setState({showNext:true})}
-              title="Continue"
-              color="#e53935"
-              accessibilityLabel="This button takes you to the next page"
-            />
+            <Button style={styles.submit} textStyle={{fontSize: 18, color:'white'}} onPress={()=>this.setState({showNext:true})}>Continue</Button>
+
           )
         }
       })()}
@@ -102,6 +98,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'justify',
     lineHeight:30,
+  },
+  submit:{
+    backgroundColor:'red',
+     height:40,
+    borderColor:'transparent',
+    marginRight: 10,
+
   },
   secondaryContainer:{
     margin:10,
