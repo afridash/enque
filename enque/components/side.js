@@ -15,20 +15,52 @@ import {
   Image,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux'
+import {queryAll, deleteSurvey} from '../databases/schemas'
+import realm from '../databases/schemas'
 export default class Side extends Component<{}> {
   constructor (props) {
     super (props)
     this.state = {
-      translated:''
+      translated:'',
+      surveys:[],
     }
   }
   componentWillMount () {
     this.checkInternet()
+    this.loadData()
+  }
+  loadData () {
+    queryAll().then((surveys)=>{
+      this.setState({surveys})
+    }).catch((error)=> {
+      alert(error)
+    })
   }
   async checkInternet () {
     var status = await AsyncStorage.getItem('status')
     if (status === 'true') {
       this.setState({upload:true})
+    }
+  }
+  async uploadSurveys () {
+    try {
+      this.state.surveys.forEach(async (survey)=> {
+        let response = await fetch('https://afridash.com/enque/saveToMysql.php',{
+          method:'POST',
+          headers:{
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(survey)
+        });
+        let responseJson = await response.json();
+        if(responseJson.success === '1'){
+          deleteSurvey(survey.id).then().catch((error)=>{
+            alert(error)
+          })
+        }
+      })
+    }catch(error) {
+      alert(error)
     }
   }
   render() {
@@ -57,9 +89,9 @@ export default class Side extends Component<{}> {
             <Text style={styles.text}>About Enque</Text>
         </TouchableHighlight>
         {this.state.upload &&
-        <View style={styles.upload}>
+        <TouchableHighlight onPress={()=>this.uploadSurveys()} style={styles.upload}>
           <Text style={styles.uploadButton}>Upload Surveys</Text>
-        </View>}
+        </TouchableHighlight>}
       </View>
     );
   }

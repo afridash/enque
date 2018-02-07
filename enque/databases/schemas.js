@@ -72,7 +72,15 @@ export const insertSurvey = survey => new Promise((resolve, reject) => {
     }).catch((error) => reject(error));
 });
 
-
+export const deleteSurvey = surveyId => new Promise((resolve, reject) => {
+    Realm.open(databaseOptions).then(realm => {
+        realm.write(() => {
+           let survey = realm.objectForPrimaryKey(SURVEY_SCHEMA, surveyId);
+           realm.delete(survey);
+           resolve();
+         });
+        }).catch((error) => reject(error));
+});
 export const deleteAll = () => new Promise((resolve, reject) => {
     Realm.open(databaseOptions).then(realm => {
         realm.write(() => {

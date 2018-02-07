@@ -8,6 +8,7 @@ import {Platform,
   Picker,
   TouchableHighlight,
   ScrollView,
+  AsyncStorage,
   KeyboardAvoidingView,
   } from 'react-native';
 import Button from 'apsl-react-native-button'
@@ -29,14 +30,20 @@ export default class Form extends Component<{}> {
     }
   }
   componentWillMount () {
-    //alert(this.props.q1)
+    this.checkInternet()
+  }
+  async checkInternet () {
+    var status = await AsyncStorage.getItem('status')
+    if (status === 'true') {
+      this.setState({upload:true})
+    }
   }
   componentWillReceiveProps (p) {
     if (!p.done) {
       this.setState({country:p.country})
     }
   }
-  submit () {
+  async submit () {
     var data = this.props.data
     if (this.state.disability === '0') {
       data['disability'] = 'no'
@@ -57,11 +64,32 @@ export default class Form extends Component<{}> {
     data['method'] = 'online'
     data['submission_date'] = Date.now()
     data['id'] = Math.floor(Date.now()/1000)
-    insertSurvey(data).then(()=>{
-      return Actions.subscribe()
-    }).catch((error)=> {
-       alert(`Insert error ${error}`)
-    })
+    if (this.state.upload) {
+      let response = await fetch('https://afridash.com/enque/saveToMysql.php',{
+        method:'POST',
+        headers:{
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(data)
+      })
+      let responseJson = await response.json()
+      if (responseJson.success === '1') {
+        alert('Saved!')
+      }else {
+        alert(responseJson.success)
+        insertSurvey(data).then(()=>{
+          return Actions.subscribe()
+        }).catch((error)=> {
+           alert(`Insert error ${error}`)
+        })
+      }
+    }else {
+      insertSurvey(data).then(()=>{
+        return Actions.subscribe()
+      }).catch((error)=> {
+         alert(`Insert error ${error}`)
+      })
+    }
 
   }
   render() {

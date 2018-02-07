@@ -37,10 +37,12 @@ export default class Dashboard extends Component<{}> {
   }
   reload () {
     queryAll().then((surveys)=> {
-      this.setState({surveys})
+      if (surveys.length > 0)
+      this.setState({surveys, noSurveys:false})
+      else this.setState({noSurveys:true})
     }).catch((error)=> {
       alert('error')
-      this.setState({surveys:[]})
+      this.setState({surveys:[], noSurveys:true})
     })
   }
   renderItem = ({item, index}) => {
@@ -57,12 +59,13 @@ export default class Dashboard extends Component<{}> {
       <View style={styles.container}>
         <Header title='Surveys' upload={true} />
         <View style={styles.secondaryContainer}>
-          <FlatList
+          {this.state.noSurveys ? <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+            <Text style={{fontSize:16, fontWeight:'500'}}>No Offline Surveys</Text>
+          </View>: <FlatList
           style={{flex:1, marginTop:2}}
           data={this.state.surveys}
           keyExtractor={this._keyExtractor}
-          renderItem={this.renderItem}/>
-
+          renderItem={this.renderItem}/>}
         </View>
       </View>
     );

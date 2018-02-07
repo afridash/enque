@@ -8,20 +8,52 @@ import {
 } from 'react-native';
 import React, { Component } from 'react';
 import { Actions, Router, Scene } from 'react-native-router-flux';
+import {queryAll, deleteSurvey} from '../databases/schemas'
+import realm from '../databases/schemas'
 export default class Header extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      upload:false
+      upload:false,
+      surveys:[]
     }
   }
   async componentWillMount (){
     this.checkInternet()
+    this.loadData()
+  }
+  loadData () {
+    queryAll().then((surveys)=>{
+      this.setState({surveys})
+    }).catch((error)=> {
+      alert(error)
+    })
   }
   async checkInternet () {
     var status = await AsyncStorage.getItem('status')
     if (status === 'true') {
       this.setState({upload:true})
+    }
+  }
+  async uploadSurveys () {
+    try {
+      this.state.surveys.forEach(async (survey)=> {
+        let response = await fetch('https://afridash.com/enque/saveToMysql.php',{
+          method:'POST',
+          headers:{
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(survey)
+        });
+        let responseJson = await response.json();
+        if(responseJson.success === '1'){
+          deleteSurvey(survey.id).then().catch((error)=>{
+            alert(error)
+          })
+        }
+      })
+    }catch(error) {
+      alert(error)
     }
   }
   render() {
@@ -61,7 +93,7 @@ export default class Header extends Component {
         </View>
       {this.props.title && <View style={styles.titleContainer}><Text style={[styles.title]}>{this.props.title}</Text></View>}
       <View style={styles.actions}>
-        {this.state.upload && this.props.title ==='Surveys' && <TouchableWithoutFeedback  onPress={()=>Actions.pop({refresh: {done: true}})}>
+        {this.state.upload && this.props.title ==='Surveys' && <TouchableWithoutFeedback  onPress={()=>this.uploadSurveys()}>
           <Image
             source={require('../assets/images/upload.png')}
             style={[styles.backButton]} />
