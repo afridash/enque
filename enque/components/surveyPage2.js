@@ -14,12 +14,12 @@ import {
   View,
   ScrollView,
   AsyncStorage,
-  Button,
   FlatList,
   Image,
   TouchableHighlight,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux'
+import Button from 'apsl-react-native-button'
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
 Translation.setConfig(ProviderTypes.Google, key,'ig');
@@ -296,12 +296,7 @@ export default class SurveyPage2 extends Component<{}> {
             renderItem={this.renderItem}
             extraData={this.state}
           />
-          <Button
-            onPress={()=>this.setState({selectionDone:true})}
-            title="NEXT"
-            color="#e53935"
-            accessibilityLabel="This button takes you to the next page"
-          />
+          <Button style={styles.submit} textStyle={{fontSize: 18, color:'white'}} onPress={()=>this.setState({selectionDone:true})}>NEXT</Button>
         </View>
       </View>
     )
@@ -318,12 +313,7 @@ export default class SurveyPage2 extends Component<{}> {
             extraData={this.state}
             style={{marginBottom:10}}
           />
-          <Button
-            onPress={()=>this.saveTemp()}
-            title="Continue"
-            color="#49A341"
-            accessibilityLabel="This button takes you to the next page"
-          />
+          <Button style={styles.submit} textStyle={{fontSize: 18, color:'white'}} onPress={()=>this.saveTemp()}>Continue</Button>
         </View>
       </View>
     )
@@ -465,5 +455,19 @@ const styles = StyleSheet.create({
     textAlign: 'justify',
     lineHeight:30,
     padding:5
-  }
+  },
+  submit:{
+    backgroundColor:'#49A341',
+     height:40,
+    borderColor:'transparent',
+    marginRight: 10,
+
+  },
+  next:{
+    backgroundColor:'#49A341',
+     height:40,
+    borderColor:'transparent',
+    marginRight: 10,
+
+  },
 });

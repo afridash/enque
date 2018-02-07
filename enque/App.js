@@ -22,6 +22,8 @@ import Subscribe from './components/subscribe'
 import About from './components/about'
 import Partners from './components/partners'
 import MyWorld from './components/myworld'
+import Login from './components/login'
+import EntryMethod from './components/entryMethod'
 import Sustainable from './components/sdgs'
 import Survey from './components/survey'
 import SurveyPage1 from './components/surveyPage1'
@@ -58,10 +60,9 @@ export default class App extends React.Component {
                 hideNavBar
                 key="root"
               >
-                <Scene key='index' component={Index} />
+                <Scene key='index' initial component={Index} />
                 <Drawer
                   hideNavBar
-                  initial
                   key="drawer"
                   contentComponent={DrawerContent}
                   drawerImage={MenuIcon}
@@ -72,20 +73,26 @@ export default class App extends React.Component {
                   */}
 
                   <Scene hideNavBar>
-                      <Scene key="dashboard" component={Dashboard} />
+                      <Scene key="dashboard" initial component={Dashboard} />
+                      <Scene key="login" component={Login} />
                       <Scene key="about" component={About} />
                       <Scene key="form"   component={Form}/>
                       <Scene key="submit"  component={Submit} />
                       <Scene key="subscribe"  component={Subscribe} />
                       <Scene key="partners" component={Partners} />
+                      <Scene key="entryMethod" initial component={EntryMethod} />
+                      <Scene key="dashboard"  component={Dashboard} />
                       <Scene key="myworld" component={MyWorld} />
                       <Scene key="sustainable" component={Sustainable} />
                       <Scene key="survey" component={Survey} />
                       <Scene key='survey1' component={SurveyPage1} />
                       <Scene key='survey2'  component={SurveyPage2} />
                       <Scene key="countries"  component={Countries} />
-                      <Scene key="papersurvey" initial component={PaperSurvey} />
+                      <Scene key="papersurvey"  component={PaperSurvey} />
                       <Scene key="paper"  component={Paper} />
+                      <Scene key="countries"   component={Countries} />
+                      <Scene key="papersurvey" component={PaperSurvey} />
+                      <Scene key="paper" component={Paper} />
                   </Scene>
                 </Drawer>
               </Stack>

@@ -17,8 +17,10 @@ export default class Countries extends Component<{}> {
        {key:3, name:'Niger'},
        {key:4, name:'Senegal'},
        {key:5, name:'Congo'}],
-      translated:''
+      translated:'',
+      countries:[]
     }
+    this.countries = this.state.data
   }
   componentDidMount () {
   }
@@ -37,6 +39,15 @@ export default class Countries extends Component<{}> {
     </View>
       )
    }
+   searchcountries(text){
+    if (text === '') this.setState({countries:this.countries})
+    else {
+      var result = this.countries.filter ((country) => country.name.toLowerCase().includes(text.toLowerCase()))
+      if (result.length > 0)
+      this.setState({data:result, noCountries:false})
+      else this.setState({noCountries:true})
+    }
+  }
   render (){
     return (
       <View style={styles.container}>
@@ -47,6 +58,7 @@ export default class Countries extends Component<{}> {
         <TextInput
           style={styles.input}
           placeholder='Search for Countries...'
+          onChangeText={(text) => { this.searchcountries(text) }}
         />
       </View>
         <FlatList
