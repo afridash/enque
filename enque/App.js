@@ -72,7 +72,7 @@ export default class App extends React.Component {
                   */}
 
                   <Scene hideNavBar>
-                      <Scene key="dashboard" initial component={Dashboard} />
+                      <Scene key="dashboard" component={Dashboard} />
                       <Scene key="about" component={About} />
                       <Scene key="form"   component={Form}/>
                       <Scene key="submit"  component={Submit} />
@@ -84,8 +84,8 @@ export default class App extends React.Component {
                       <Scene key='survey1' component={SurveyPage1} />
                       <Scene key='survey2'  component={SurveyPage2} />
                       <Scene key="countries"  component={Countries} />
-                      <Scene key="papersurvey" component={PaperSurvey} />
-                      <Scene key="paper" component={Paper} />
+                      <Scene key="papersurvey" initial component={PaperSurvey} />
+                      <Scene key="paper"  component={Paper} />
                   </Scene>
                 </Drawer>
               </Stack>
