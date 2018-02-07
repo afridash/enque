@@ -79,18 +79,20 @@ export default class Header extends Component {
             })()
           }
         </View>
-        <View>
           {
             (()=>{
               if (this.props.icon) {
                 return (
+                  <View style={{flex:1, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
                   <Image
                     source={require('../assets/images/icon.png')}
-                    style={[styles.icon]} />)
+                    style={[styles.icon]} />
+                  </View>
+                )
               }
             })()
           }
-        </View>
+
       {this.props.title && <View style={styles.titleContainer}><Text style={[styles.title]}>{this.props.title}</Text></View>}
       <View style={styles.actions}>
         {this.state.upload && this.props.title ==='Surveys' && <TouchableWithoutFeedback  onPress={()=>this.uploadSurveys()}>

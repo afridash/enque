@@ -7,6 +7,8 @@ import {
   Platform,
   StatusBar,
   TextInput,
+  ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux'
 import Button from 'apsl-react-native-button'
@@ -20,66 +22,76 @@ export default class Login extends React.Component {
       isLoading: false,
     }
   }
-  componentWillMount () {
+  login () {
+    this.setState({isLoading:true})
+    if (this.state.email === 'sdg@sdg.com' && this.state.password === 'pass'){
+        return Actions.entryMethod()
+    }else {
+      alert('Wrong email/password combination')
+      this.setState({isLoading:false})
+    }
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <StatusBar backgroundColor={'#15354e'} barStyle='light-content' />
-        <Image source={require('../assets/images/icon.png')} resizeMode={'contain'} style={styles.logo} />
-        <View style={{flex:1}}>
-          <View style={{width:300, flex:1}}>
-            <TextInput
-              style={{
-                height:40,
-                fontSize:14,
-                color:'white',
-                margin:20,
-                padding:10,
-                borderColor:'gray',
-                borderWidth:1,
-              }}
-              keyboardType='default'
-              placeholder='Email'
-              autoCapitalize='none'
-              autoCorrect={false}
-              placeholderTextColor={'white'}
-              onChangeText={(email) => this.setState({email})}
-              onSubmitEditing={() => { this.passwordinput.focus() }}
-              returnKeyType='next'
-            />
+      <KeyboardAvoidingView style={{flex:1, backgroundColor:'#1d4869'}} behavior={Platform.OS === 'ios' ? 'padding' : null}>
+        <ScrollView style={{flex:1}}>
+          <View style={styles.container}>
+            <View style={{flex:3, alignItems:'center', justifyContent:'center', marginTop:20}}>
+              <Image source={require('../assets/images/icon.png')} resizeMode={'contain'} style={styles.logo} />
+            </View>
+            <View style={{flex:3, margin:10, justifyContent:'center', alignItems:'center', marginTop:30}}>
+              <View style={{width:400, flex:1, borderBottomWidth: (Platform.OS === 'ios') ? 1 : 0, borderColor:'white'}}>
+                <TextInput
+                  style={{
+                    height:50,
+                    fontSize:16,
+                    color:'white',
+                    marginLeft:20,
+                    textAlign:'center',
+                    marginRight:20,
+                    flex:1
+                  }}
+                  keyboardType='default'
+                  placeholder='Email'
+                  autoCapitalize='none'
+                  autoCorrect={false}
+                  placeholderTextColor={'white'}
+                  onChangeText={(email) => this.setState({email})}
+                  onSubmitEditing={() => { this.passwordinput.focus() }}
+                  returnKeyType='next'
+                />
+              </View>
+              <View style={{flex:1, width:400, marginTop:10}}>
+                <TextInput
+                  style={{
+                    fontSize:16,
+                    color:'white',
+                    height:50,
+                    marginLeft:20,
+                    marginRight:20,
+                    textAlign:'center',
+                    flex:1,
+                  }}
+                  returnKeyType='go'
+                  ref={(input) => this.passwordinput = input}
+                  autoCorrect={false}
+                  autoCapitalize='none'
+                  keyboardAppearance='dark'
+                  placeholder={'Password '}
+                  placeholderTextColor={'white'}
+                  onSubmitEditing={() => { this.login() }}
+                  onChangeText={(password) => this.setState({password})}
+                  secureTextEntry
+                />
+              </View>
+            </View>
+            <Button isLoading={this.state.isLoading} onPress={()=>this.login()} style={{backgroundColor: '#1eaaf1', borderWidth:0, borderColor:'transparent', margin:70}} textStyle={{fontSize: 20, color:'white'}}>
+              Login
+            </Button>
           </View>
-          <View style={{flex:1, width:300, marginTop:30}}>
-            <TextInput
-              style={{
-                fontSize:14,
-                color:'white',
-                height:40,
-                margin:20,
-                padding:10,
-                borderColor:'gray',
-                borderWidth:1,
-              }}
-              returnKeyType='go'
-              ref={(input) => this.passwordinput = input}
-              autoCorrect={false}
-              autoCapitalize='none'
-              keyboardAppearance='dark'
-              placeholder={'Password '}
-              placeholderTextColor={'white'}
-              onSubmitEditing={() => { this.login() }}
-              onChangeText={(password) => this.setState({password})}
-              secureTextEntry
-            />
-          </View>
-        </View>
-        <Button onPress={Actions.entryMethod} style={{backgroundColor: '#1eaaf1', borderWidth:0, borderColor:'transparent', margin:70}} textStyle={{fontSize: 20, color:'white'}}>
-          Login
-        </Button>
-        <View style={styles.app}>
-        </View>
-      </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -87,17 +99,15 @@ export default class Login extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#1d4869',
   },
   logo: {
-    flex:3,
+    flex:4,
     alignItems:'center',
     justifyContent:'center',
     marginTop: 30,
   },
   app: {
-    flex:1.5,
+    flex:0.5,
   },
 });
