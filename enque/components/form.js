@@ -130,6 +130,7 @@ export default class Form extends Component<{}> {
                 style={{flex:1}}
                 selectedValue={this.state.gender}
                 onValueChange={(itemValue, itemIndex) => this.setState({gender: itemValue})}>
+                <Picker.Item value='' label='' />
                 <Picker.Item label="Female" value="female" />
                 <Picker.Item label="Male" value="male" />
               </Picker>
@@ -140,6 +141,7 @@ export default class Form extends Component<{}> {
                 style={{flex:1}}
                 selectedValue={this.state.education}
                 onValueChange={(itemValue, itemIndex) => this.setState({education: itemValue})}>
+                <Picker.Item value='' label='' />
                 <Picker.Item label="Some Primary" value="1" />
                 <Picker.Item label="Finished Primary" value="2" />
                 <Picker.Item label="Finished Secondary" value="3" />
@@ -169,6 +171,7 @@ export default class Form extends Component<{}> {
                 style={{flex:1}}
                 selectedValue={this.state.disability}
                 onValueChange={(itemValue, itemIndex) => this.setState({disability: itemValue})}>
+                <Picker.Item value='' label='' />
                 <Picker.Item label="None" value="0" />
                 <Picker.Item label="Physical" value="1" />
                 <Picker.Item label="Vision" value="2" />

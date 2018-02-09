@@ -31,7 +31,7 @@ var radio_props = [
   {label: '4', value: 4 },
   {label: '5', value: 5 },
 ];
-var sdgImages = [
+const sdgImages = [
   {
     key:1,
     image: require ('../assets/images/1_Poverty_SDG.png'),
@@ -183,6 +183,7 @@ export default class SurveyPage2 extends Component<{}> {
     this.feedbacks = []
   }
   componentWillMount () {
+    this.setState({images:sdgImages})
     this.checkInternet()
   }
   async checkInternet () {
@@ -254,7 +255,7 @@ export default class SurveyPage2 extends Component<{}> {
             animation={true}
             radio_props={radio_props}
             initial={0}
-            onPress={(value) => this.handleRadio(value, item.key)}
+            onPress={(value) => this.handleRadio(item.key, value)}
           />
           </View>
         </View>
@@ -367,46 +368,8 @@ export default class SurveyPage2 extends Component<{}> {
       q3_goal16: q3_goal16,
       q3_goal17: q3_goal17,
     }
+    this.setState({images:[], selectedImages:[]})
     Actions.replace('form', {data:data})
-    /*
-    console.log('Q1', q1)
-
-    console.log("q2_goal17 ", q2_goal17)
-    console.log("q2_goal16", q2_goal16)
-    console.log('q2_goal15', q2_goal15)
-    console.log('q2_goal14', q2_goal14)
-    console.log('q2_goal13', q2_goal13)
-    console.log('q2_goal12', q2_goal12)
-    console.log('q2_goal11', q2_goal11)
-    console.log('q2_goal10', q2_goal10)
-    console.log('q2_goal9', q2_goal9)
-    console.log('q2_goal8', q2_goal8)
-    console.log('q2_goal7', q2_goal7)
-    console.log('q2_goal6', q2_goal6)
-    console.log('q2_goal5', q2_goal5)
-    console.log('q2_goal4', q2_goal4)
-    console.log('q2_goal3', q2_goal3)
-    console.log('q2_goal2', q2_goal2)
-    console.log('q2_goal1', q2_goal1)
-
-    console.log("q3_goal17 ", q3_goal17)
-    console.log("q3_goal16", q3_goal16)
-    console.log('q3_goal15', q3_goal15)
-    console.log('q3_goal14', q3_goal14)
-    console.log('q3_goal13', q3_goal13)
-    console.log('q3_goal12', q3_goal12)
-    console.log('q3_goal11', q3_goal11)
-    console.log('q3_goal10', q3_goal10)
-    console.log('q3_goal9', q3_goal9)
-    console.log('q3_goal8', q3_goal8)
-    console.log('q3_goal7', q3_goal7)
-    console.log('q3_goal6', q3_goal6)
-    console.log('q3_goal5', q3_goal5)
-    console.log('q3_goal4', q3_goal4)
-    console.log('q3_goal3', q3_goal3)
-    console.log('q3_goal2', q3_goal2)
-    console.log('q3_goal1', q3_goal1)
-    */
   }
   render () {
     return (
