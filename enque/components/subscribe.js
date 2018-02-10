@@ -6,10 +6,14 @@ import {Platform,
   Image,
   KeyboardAvoidingView,
   ScrollView,
+  AsyncStorage,
   TextInput} from 'react-native';
 import Button from 'apsl-react-native-button'
 import Header from './header'
+import {Actions} from 'react-native-router-flux'
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
+import {insertSubscriber} from '../databases/schemas'
+import realm from '../databases/schemas'
 var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
 Translation.setConfig(ProviderTypes.Google, key,'ig');
 
@@ -17,10 +21,64 @@ export default class Subscribe extends Component<{}> {
   constructor (props) {
     super (props)
     this.state = {
-      translated:''
+      email:''
     }
   }
-  componentDidMount () {
+  componentWillMount () {
+    this.checkInternet()
+  }
+  async checkInternet () {
+    var status = await AsyncStorage.getItem('status')
+    if (status === 'true') {
+      this.setState({upload:true})
+    }
+  }
+  save = () => {
+    this.setState({isLoading:true})
+    if (this.state.email !== '') {
+      this.handleSave()
+    }else {
+      alert('Email must be valid')
+      this.setState({isLoading:false})
+    }
+  }
+  handleSave () {
+    var user = {
+      id: Math.floor(Date.now()/1000),
+      email:this.state.email
+    }
+    //If there is internet access, upload online
+    //Else save locally
+    if (this.state.upload) {
+      this.saveOnline (user)
+    }else {
+      this.saveOffline (user)
+    }
+  }
+  saveOffline (user) {
+    insertSubscriber(user).then(()=> {
+      alert('Subscription successful')
+      return Actions.replace('entryMethod')
+    }).catch((error)=> {
+      alert(`There was an error saving subscriber ${error}`)
+      this.setState({isLoading:false})
+    })
+  }
+  async saveOnline (user) {
+    let response = await fetch('https://afridash.com/enque/saveSubscriber.php',{
+      method:'POST',
+      headers:{
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(user)
+    })
+    let responseJson = await response.json()
+    if (responseJson.success === '1') {
+      this.setState({isLoading:false})
+      return Actions.subscribe()
+    }else {
+      this.saveOffline(user)
+    }
   }
   render() {
     return (
@@ -37,17 +95,13 @@ export default class Subscribe extends Component<{}> {
           </Text>
         </View>
         <View style={styles.list}>
-          <View style={{flex:1, borderBottomWidth:1,marginBottom:20, flexDirection:'row', alignItems:'center'}}>
-            <Text >Email address: &nbsp; &nbsp;</Text>
-            <TextInput style={{flex:1}} placeholder='Email'/>
-          </View>
-          <View style={{flex:1, borderBottomWidth:1,marginBottom:20, flexDirection:'row', alignItems:'center'}}>
-            <Text >Mobile Number:&nbsp; &nbsp;</Text>
-            <TextInput style={{flex:1}} placeholder='Mobile Number'/>
+          <View style={{flex:1, borderBottomWidth: (Platform.OS === 'ios') ? 1 : 0,marginBottom:20, flexDirection:'row', alignItems:'center'}}>
+            <Text style={{fontSize:16}} >Email address: &nbsp; &nbsp;</Text>
+            <TextInput keyboardType='email-address' onChangeText={(email)=>this.setState({email})} style={{flex:1, height:70, fontSize:16}} placeholder='Email'/>
           </View>
         </View>
-        <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:2}}>
-          <Button style={{backgroundColor:'#1eaaf1', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}}>Subscribe</Button>
+        <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1}}>
+          <Button isLoading={this.state.isLoading} onPress={this.save} style={{backgroundColor:'#1eaaf1', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}}>Subscribe</Button>
         </View>
       </View>
       </ScrollView>
@@ -61,7 +115,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   list:{
-    flex:1,
+    flex:2,
+    marginTop:10,
   },
   welcome: {
     fontSize: 30,

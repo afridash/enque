@@ -194,6 +194,7 @@ export default class SurveyPage2 extends Component {
     this.setState({images:[], selectedImages:[]})
   }
   toggleSelected (item, index) {
+    this.feedbacks = []
      if (item.selected) {
        this.selected--
        this.setSelected(item, index)
@@ -208,6 +209,9 @@ export default class SurveyPage2 extends Component {
      if (this.selected === 6) {
        this.setState({selectionDone:true})
      }
+     this.selectedImages.forEach((image)=> {
+       this.feedbacks[image.key] = 1
+     })
   }
   async setSelected (item, index) {
     item.selected = !item.selected
@@ -295,83 +299,83 @@ export default class SurveyPage2 extends Component {
       </View>
     )
   }
-  saveTemp (demo) {
-    var q1 = this.props.status
+  saveTemp () {
+      var q1 = this.props.status
 
-    var q2_goal1 = this.state.images[0].selected ? 1 : 0
-    var q2_goal2 = this.state.images[1].selected ? 1 : 0
-    var q2_goal3 = this.state.images[2].selected ? 1 : 0
-    var q2_goal4 = this.state.images[3].selected ? 1 : 0
-    var q2_goal5 = this.state.images[4].selected ? 1 : 0
-    var q2_goal6 = this.state.images[5].selected ? 1 : 0
-    var q2_goal7 = this.state.images[6].selected ? 1 : 0
-    var q2_goal8 = this.state.images[7].selected ? 1 : 0
-    var q2_goal9 = this.state.images[8].selected ? 1 : 0
-    var q2_goal10 = this.state.images[9].selected ? 1 : 0
-    var q2_goal11 = this.state.images[10].selected ? 1 : 0
-    var q2_goal12 = this.state.images[11].selected ? 1 : 0
-    var q2_goal13 = this.state.images[13].selected ? 1 : 0
-    var q2_goal14 = this.state.images[14].selected ? 1 : 0
-    var q2_goal15 = this.state.images[15].selected ? 1 : 0
-    var q2_goal16 = this.state.images[15].selected ? 1 : 0
-    var q2_goal17 = this.state.images[16].selected ? 1 : 0
+      var q2_goal1 = this.state.images[0].selected ? 1 : 0
+      var q2_goal2 = this.state.images[1].selected ? 1 : 0
+      var q2_goal3 = this.state.images[2].selected ? 1 : 0
+      var q2_goal4 = this.state.images[3].selected ? 1 : 0
+      var q2_goal5 = this.state.images[4].selected ? 1 : 0
+      var q2_goal6 = this.state.images[5].selected ? 1 : 0
+      var q2_goal7 = this.state.images[6].selected ? 1 : 0
+      var q2_goal8 = this.state.images[7].selected ? 1 : 0
+      var q2_goal9 = this.state.images[8].selected ? 1 : 0
+      var q2_goal10 = this.state.images[9].selected ? 1 : 0
+      var q2_goal11 = this.state.images[10].selected ? 1 : 0
+      var q2_goal12 = this.state.images[11].selected ? 1 : 0
+      var q2_goal13 = this.state.images[13].selected ? 1 : 0
+      var q2_goal14 = this.state.images[14].selected ? 1 : 0
+      var q2_goal15 = this.state.images[15].selected ? 1 : 0
+      var q2_goal16 = this.state.images[15].selected ? 1 : 0
+      var q2_goal17 = this.state.images[16].selected ? 1 : 0
 
-    var q3_goal1 = q2_goal1 !== 0 ? this.feedbacks[1] : 0
-    var q3_goal2 = q2_goal2 !== 0 ? this.feedbacks[2] : 0
-    var q3_goal3 = q2_goal3 !== 0 ? this.feedbacks[3] : 0
-    var q3_goal4 = q2_goal4 !== 0 ? this.feedbacks[4] : 0
-    var q3_goal5 = q2_goal5 !== 0 ? this.feedbacks[5] : 0
-    var q3_goal6 = q2_goal6 !== 0 ? this.feedbacks[6] : 0
-    var q3_goal7 = q2_goal7 !== 0 ? this.feedbacks[7] : 0
-    var q3_goal8 = q2_goal8 !== 0 ? this.feedbacks[8] : 0
-    var q3_goal9 = q2_goal9 !== 0 ? this.feedbacks[9] : 0
-    var q3_goal10 = q2_goal10 !== 0 ? this.feedbacks[10] : 0
-    var q3_goal11 = q2_goal11 !== 0 ? this.feedbacks[11] : 0
-    var q3_goal12 = q2_goal12 !== 0 ? this.feedbacks[12] : 0
-    var q3_goal13 = q2_goal13 !== 0 ? this.feedbacks[13] : 0
-    var q3_goal14 = q2_goal14 !== 0 ? this.feedbacks[14] : 0
-    var q3_goal15 = q2_goal15 !== 0 ? this.feedbacks[15] : 0
-    var q3_goal16 = q2_goal16 !== 0 ? this.feedbacks[16] : 0
-    var q3_goal17 = q2_goal17 !== 0 ? this.feedbacks[17] : 0
-    var data = {
-      q1: q1,
-      q2_goal1: q2_goal1,
-      q2_goal2: q2_goal2,
-      q2_goal3: q2_goal3,
-      q2_goal4: q2_goal4,
-      q2_goal5: q2_goal5,
-      q2_goal6: q2_goal6,
-      q2_goal7: q2_goal7,
-      q2_goal8: q2_goal8,
-      q2_goal9: q2_goal9,
-      q2_goal10: q2_goal10,
-      q2_goal11: q2_goal11,
-      q2_goal12: q2_goal12,
-      q2_goal13: q2_goal13,
-      q2_goal14: q2_goal14,
-      q2_goal15: q2_goal15,
-      q2_goal16: q2_goal16,
-      q2_goal17: q2_goal17,
-      q3_goal1: q3_goal1,
-      q3_goal2: q3_goal2,
-      q3_goal3: q3_goal3,
-      q3_goal4: q3_goal4,
-      q3_goal5: q3_goal5,
-      q3_goal6: q3_goal6,
-      q3_goal7: q3_goal7,
-      q3_goal8: q3_goal8,
-      q3_goal9: q3_goal9,
-      q3_goal10: q3_goal10,
-      q3_goal11: q3_goal11,
-      q3_goal12: q3_goal12,
-      q3_goal13: q3_goal13,
-      q3_goal14: q3_goal14,
-      q3_goal15: q3_goal15,
-      q3_goal16: q3_goal16,
-      q3_goal17: q3_goal17,
-    }
-    this.setState({images:[], selectedImages:[]})
-    Actions.replace('form', {data:data})
+      var q3_goal1 = q2_goal1 !== 0 ? this.feedbacks[1] : 0
+      var q3_goal2 = q2_goal2 !== 0 ? this.feedbacks[2] : 0
+      var q3_goal3 = q2_goal3 !== 0 ? this.feedbacks[3] : 0
+      var q3_goal4 = q2_goal4 !== 0 ? this.feedbacks[4] : 0
+      var q3_goal5 = q2_goal5 !== 0 ? this.feedbacks[5] : 0
+      var q3_goal6 = q2_goal6 !== 0 ? this.feedbacks[6] : 0
+      var q3_goal7 = q2_goal7 !== 0 ? this.feedbacks[7] : 0
+      var q3_goal8 = q2_goal8 !== 0 ? this.feedbacks[8] : 0
+      var q3_goal9 = q2_goal9 !== 0 ? this.feedbacks[9] : 0
+      var q3_goal10 = q2_goal10 !== 0 ? this.feedbacks[10] : 0
+      var q3_goal11 = q2_goal11 !== 0 ? this.feedbacks[11] : 0
+      var q3_goal12 = q2_goal12 !== 0 ? this.feedbacks[12] : 0
+      var q3_goal13 = q2_goal13 !== 0 ? this.feedbacks[13] : 0
+      var q3_goal14 = q2_goal14 !== 0 ? this.feedbacks[14] : 0
+      var q3_goal15 = q2_goal15 !== 0 ? this.feedbacks[15] : 0
+      var q3_goal16 = q2_goal16 !== 0 ? this.feedbacks[16] : 0
+      var q3_goal17 = q2_goal17 !== 0 ? this.feedbacks[17] : 0
+      var data = {
+        q1: q1,
+        q2_goal1: q2_goal1,
+        q2_goal2: q2_goal2,
+        q2_goal3: q2_goal3,
+        q2_goal4: q2_goal4,
+        q2_goal5: q2_goal5,
+        q2_goal6: q2_goal6,
+        q2_goal7: q2_goal7,
+        q2_goal8: q2_goal8,
+        q2_goal9: q2_goal9,
+        q2_goal10: q2_goal10,
+        q2_goal11: q2_goal11,
+        q2_goal12: q2_goal12,
+        q2_goal13: q2_goal13,
+        q2_goal14: q2_goal14,
+        q2_goal15: q2_goal15,
+        q2_goal16: q2_goal16,
+        q2_goal17: q2_goal17,
+        q3_goal1: q3_goal1,
+        q3_goal2: q3_goal2,
+        q3_goal3: q3_goal3,
+        q3_goal4: q3_goal4,
+        q3_goal5: q3_goal5,
+        q3_goal6: q3_goal6,
+        q3_goal7: q3_goal7,
+        q3_goal8: q3_goal8,
+        q3_goal9: q3_goal9,
+        q3_goal10: q3_goal10,
+        q3_goal11: q3_goal11,
+        q3_goal12: q3_goal12,
+        q3_goal13: q3_goal13,
+        q3_goal14: q3_goal14,
+        q3_goal15: q3_goal15,
+        q3_goal16: q3_goal16,
+        q3_goal17: q3_goal17,
+      }
+      this.setState({images:[], selectedImages:[]})
+      Actions.replace('form', {data:data})
   }
   render () {
     return (

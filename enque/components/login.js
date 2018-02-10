@@ -52,7 +52,7 @@ export default class Login extends React.Component {
                     marginRight:20,
                     flex:1
                   }}
-                  keyboardType='default'
+                  keyboardType='email-address'
                   placeholder='Email'
                   autoCapitalize='none'
                   autoCorrect={false}

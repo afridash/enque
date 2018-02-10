@@ -29,7 +29,8 @@ build/
 .gradle
 local.properties
 *.iml
-
+#php codes
+backend/
 # node.js
 #
 node_modules/

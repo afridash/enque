@@ -1,7 +1,16 @@
 
 import Realm from 'realm';
 export const SURVEY_SCHEMA = "Surveys";
+export const SUBSCRIBE_SCHEMA = "Subscribers"
 // Define your models and their properties
+export const SubscribersSchema = {
+  name: SUBSCRIBE_SCHEMA,
+  primaryKey: 'id',
+  properties: {
+    id: 'int',
+    email: 'string'
+  }
+}
 export const SurveySchema = {
     name: SURVEY_SCHEMA,
     primaryKey: 'id',
@@ -58,11 +67,40 @@ export const SurveySchema = {
     }
 };
 const databaseOptions = {
-    path: 'survey.realm',
-    schema: [SurveySchema],
+    path: 'surveys.realm',
+    schema: [SurveySchema, SubscribersSchema],
     schemaVersion: 0, //optional
 };
-//functions for TodoLists
+
+//Functions for subscribers
+export const insertSubscriber = user => new Promise((resolve, reject) => {
+    Realm.open(databaseOptions).then(realm => {
+        realm.write(() => {
+            realm.create(SUBSCRIBE_SCHEMA, user);
+            resolve(user);
+        });
+    }).catch((error) => reject(error));
+});
+
+export const deleteSubscriber = subscriber => new Promise((resolve, reject) => {
+    Realm.open(databaseOptions).then(realm => {
+        realm.write(() => {
+           let user = realm.objectForPrimaryKey(SUBSCRIBE_SCHEMA, subscriber);
+           realm.delete(user);
+           resolve();
+         });
+        }).catch((error) => reject(error));
+});
+
+export const queryAllSubscribers = () => new Promise((resolve, reject) => {
+    Realm.open(databaseOptions).then(realm => {
+        let subscribers = realm.objects(SUBSCRIBE_SCHEMA);
+        resolve(subscribers);
+    }).catch((error) => {
+        reject(error);
+    });;
+});
+//functions for surveys
 export const insertSurvey = survey => new Promise((resolve, reject) => {
     Realm.open(databaseOptions).then(realm => {
         realm.write(() => {

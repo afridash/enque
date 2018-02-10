@@ -8,14 +8,15 @@ import {
 } from 'react-native';
 import React, { Component } from 'react';
 import { Actions, Router, Scene } from 'react-native-router-flux';
-import {queryAll, deleteSurvey} from '../databases/schemas'
+import {queryAll, deleteSurvey, queryAllSubscribers, deleteSubscriber} from '../databases/schemas'
 import realm from '../databases/schemas'
 export default class Header extends Component {
   constructor (props) {
     super(props)
     this.state = {
       upload:false,
-      surveys:[]
+      surveys:[],
+      subscribers:[]
     }
   }
   async componentWillMount (){
@@ -26,6 +27,11 @@ export default class Header extends Component {
     queryAll().then((surveys)=>{
       this.setState({surveys})
     }).catch((error)=> {
+      alert(error)
+    })
+    queryAllSubscribers().then((subscribers) => {
+      this.setState({subscribers})
+    }).catch((error) => {
       alert(error)
     })
   }
@@ -45,6 +51,7 @@ export default class Header extends Component {
           },
           body: JSON.stringify(survey)
         });
+
         let responseJson = await response.json();
         if(responseJson.success === '1'){
           deleteSurvey(survey.id).then().catch((error)=>{
@@ -55,6 +62,24 @@ export default class Header extends Component {
     }catch(error) {
       alert(error)
     }
+    this.uploadSubscribers()
+  }
+  async uploadSubscribers () {
+    this.state.subscribers.forEach( async (subscriber) => {
+      let response = await fetch('https://afridash.com/enque/saveSubscriber.php',{
+        method:'POST',
+        headers:{
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(subscriber)
+      });
+      let responseJson = await response.json();
+      if(responseJson.success === '1'){
+        deleteSubscriber(subscriber.id).then().catch((error)=>{
+          alert(error)
+        })
+      }
+    })
   }
   render() {
     return (
