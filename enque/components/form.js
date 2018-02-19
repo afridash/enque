@@ -148,7 +148,7 @@ export default class Form extends Component<{}> {
                 <Picker.Item label="Beyond Secondary" value="4" />
               </Picker>
             </View>
-            <View style={{flex:1,borderBottomWidth:1,marginBottom:20,flexDirection:'row', alignItems:'center'}}>
+            <View style={{flex:1, borderBottomWidth:1, marginBottom:20, flexDirection:'row', alignItems:'center'}}>
               <Image source={require('../assets/images/building.png')} style={styles.home}/>
               <TextInput onChangeText={(text)=>this.setState({city:text})} style={{flex:1}} placeholder='City/Town'/>
             </View>
