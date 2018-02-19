@@ -34,7 +34,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#EB1C2E',
           title:'Poverty',
-          description:'End poverty in all its forms everywhere'
+          description:'End poverty in all its forms everywhere',
+          score:0,
        },
         {
           key:2,
@@ -42,7 +43,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#DDA73A',
           title:'Zero Hunger',
-          description:'End hunger, achieve food security and improved nutrition and promote sustainable agriculture'
+          description:'End hunger, achieve food security and improved nutrition and promote sustainable agriculture',
+          score:0,
         },
         {
           key:3,
@@ -50,7 +52,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#49A341',
           title: 'Good Health and Well-Being',
-          description:'Ensure healthy lives and promote well-being for all at all ages'
+          description:'Ensure healthy lives and promote well-being for all at all ages',
+          score:0,
         },
         {
           key:4,
@@ -58,7 +61,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#C21F32',
           title:'Quality Education',
-          description:'Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all'
+          description:'Ensure inclusive and equitable quality education and promote lifelong learning opportunities for all',
+          score:0
         },
         {
           key:5,
@@ -66,7 +70,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#EF402D',
           title:'Gender Equality',
-          description:'Achieve gender equality and empower all women and girls'
+          description:'Achieve gender equality and empower all women and girls',
+          score:0
         },
         {
           key:6,
@@ -74,7 +79,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#01AED9',
           title:'Clean Water and Sanitation',
-          description:'Ensure availability and sustainable management of water and sanitation for all'
+          description:'Ensure availability and sustainable management of water and sanitation for all',
+          score:0
         },
         {
           key:7,
@@ -82,7 +88,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#FBC412',
           title:'Affordable and Clean Energy',
-          description:'Ensure access to affordable, reliable, sustainable and modern energy for all'
+          description:'Ensure access to affordable, reliable, sustainable and modern energy for all',
+          score:0
         },
         {
           key:8,
@@ -90,7 +97,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#8F1838',
           title:'Decent Work & Economic Growth',
-          description:'Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all'
+          description:'Promote sustained, inclusive and sustainable economic growth, full and productive employment and decent work for all',
+          score:0
         },
         {
           key:9,
@@ -98,7 +106,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#F36D24',
           title:'Industry, Innovation, and Infrastructure',
-          description:'Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation'
+          description:'Build resilient infrastructure, promote inclusive and sustainable industrialization and foster innovation',
+          score:0
         },
         {
           key:10,
@@ -106,7 +115,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#DE1768',
           title:'Reduced Inequalities',
-          description:'Reduce inequality within and among countries'
+          description:'Reduce inequality within and among countries',
+          score:0
         },
         {
           key:11,
@@ -114,7 +124,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#FA9D26',
           title:'Sustainable Cities and Communities',
-          description:'Make cities and human settlements inclusive, safe, resilient and sustainable'
+          description:'Make cities and human settlements inclusive, safe, resilient and sustainable',
+          score:0
         },
         {
           key:12,
@@ -122,7 +133,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#CD8D29',
           title:'Responsible Consumption & Production',
-          description:'Ensure sustainable consumption and production patterns'
+          description:'Ensure sustainable consumption and production patterns',
+          score:0
         },
         {
           key:13,
@@ -131,6 +143,7 @@ export default class Paper extends Component<{}> {
           color:'#47773D',
           title:'Climate Action',
           description:'Take urgent action to combat climate change and its impacts',
+          score:0
         },
         {
           key:14,
@@ -138,7 +151,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#1F97D4',
           title:'Life Below Water',
-          description:'Conserve and sustainably use the oceans, seas and marine resources for sustainable development'
+          description:'Conserve and sustainably use the oceans, seas and marine resources for sustainable development',
+          score:0
         },
         {
           key:15,
@@ -146,7 +160,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#3DB04B',
           title:'Life on Land',
-          description:'Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss'
+          description:'Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss',
+          score:0
         },
         {
           key:16,
@@ -154,7 +169,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#025589',
           title:'Peace, Justice and Strong Institutions',
-          description:'Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels'
+          description:'Promote peaceful and inclusive societies for sustainable development, provide access to justice for all and build effective, accountable and inclusive institutions at all levels',
+          score:0
         },
         {
           key:17,
@@ -162,7 +178,8 @@ export default class Paper extends Component<{}> {
           selected:false,
           color:'#183668',
           title:'Partnerships for the Goals',
-          description:'Strengthen the means of implementation and revitalize the global partnership for sustainable development'
+          description:'Strengthen the means of implementation and revitalize the global partnership for sustainable development',
+          score:0
         }
       ],
     }
@@ -283,28 +300,40 @@ export default class Paper extends Component<{}> {
   }
   getDisabilityType () {
     var physicalLocation = this.state.returnedText.indexOf('Physical')
-    var visionLocation = this.state.returnedText.indexOf('Vision')
-    var hearingLocation = this.state.returnedText.indexOf('Hearing')
-    var speakingLocation = this.state.returnedText.indexOf('Speaking')
-    var othersLocation = this.state.returnedText.lastIndexOf('Others')
-
     var physical = this.state.returnedText.substr(physicalLocation+8, 5).trim()
-    var vision = this.state.returnedText.substr(visionLocation+6, 5).trim()
-    var hearing = this.state.returnedText.substr(hearingLocation+7, 5).trim()
-    var speaking = this.state.returnedText.substr(speakingLocation+8, 5).trim()
-    var others = this.state.returnedText.substr(othersLocation+6, 5).trim()
-
-    this.setState({physical:physical, vision:vision, hearing:hearing, speaking:speaking, others:others})
+    if (physical.toLowerCase() === 'yes' ) {
+      this.setState({disability_type:'1'})
+    }else {
+      var visionLocation = this.state.returnedText.indexOf('Vision')
+      var vision = this.state.returnedText.substr(visionLocation+6, 5).trim()
+      if (vision.toLowerCase()) {
+        this.setState({disability_type:'2'})
+      }else {
+        var hearingLocation = this.state.returnedText.indexOf('Hearing')
+        var hearing = this.state.returnedText.substr(hearingLocation+7, 5).trim()
+        if (hearing.toLowerCase() === 'yes' ) {
+          this.setState({disability_type:'3'})
+        }else {
+          var speakingLocation = this.state.returnedText.indexOf('Speaking')
+          var speaking = this.state.returnedText.substr(speakingLocation+8, 5).trim()
+          if (speaking.toLowerCase() === 'yes' ) {
+            this.setState({disability_type:'4'})
+          }else {
+            this.setState({disability_type:'5'})
+          }
+        }
+      }
+    }
   }
   parseDisability () {
     var disabilityLocation = this.state.returnedText.indexOf('Disability: ')
     var disability = this.state.returnedText.substr(disabilityLocation+11, 5).trim()
     if (disability.toLowerCase() === 'yes') {
       this.getDisabilityType()
+      this.setState({disability:'yes'})
     } else {
-      this.setState({physical:'No', vision:'No', hearing:'No', speaking:'No', others:'No'})
+      this.setState({disability:'no', disability_type:'0'})
     }
-    this.setState({disability:disability})
   }
   parseNumber () {
     var phoneLocation = this.state.returnedText.indexOf('Number: ')
@@ -350,34 +379,39 @@ export default class Paper extends Component<{}> {
     var maleLocation = this.state.returnedText.indexOf('Male')
     var male = this.state.returnedText.substr(maleLocation + 4, 5).trim()
     if (male.toLowerCase() === 'yes') {
-      this.setState({gender:'Male', male:'Yes'})
+      this.setState({gender:'male'})
     }else {
       var femaleLocation = this.state.returnedText.indexOf('Female')
       var female = this.state.returnedText.substr(femaleLocation + 6, 5)
-      if (female.toLowerCase() === 'yes')
-      this.setState({gender:'Female', female:'Yes'})
-    }
+      if (female.toLowerCase() === 'yes') {
+          this.setState({gender:'female'})
+        } else {
+          this.setState({gender:''})
+        }
+      }
   }
   parseEducation () {
     var somePrimaryLocation = this.state.returnedText.indexOf('Some Primary')
     var somePrimary = this.state.returnedText.substr(somePrimaryLocation+12, 5).trim()
     if (somePrimary.toLowerCase() === 'yes') {
-      this.setState({somePrimary:'Yes'})
+      this.setState({education:'1', educationTitle:'Some Primary' })
     }else {
       var finishedPrimaryLocation = this.state.returnedText.indexOf('Finished Primary')
       var finishedPrimary = this.state.returnedText.substr(finishedPrimaryLocation+16, 5).trim()
       if (finishedPrimary.toLowerCase() === 'yes') {
-        this.setState({finishedPrimary:'Yes'})
+        this.setState({education:'2', educationTitle:'Finished Primary'})
       }else {
         var someSecondaryLocation = this.state.returnedText.indexOf('Finished Secondary')
         var someSecondary = this.state.returnedText.substr(someSecondaryLocation+14, 5).trim()
         if (someSecondary.toLowerCase() === 'yes') {
-          this.setState({someSecondary:'Yes'})
+          this.setState({education:'3', educationTitle:'Finished Secondary' })
         }else {
           var beyondSecondaryLocation = this.state.returnedText.indexOf('Beyond Secondary')
           var beyondSecondary = this.state.returnedText.substr(beyondSecondaryLocation+18, 5).trim()
           if (beyondSecondary.toLowerCase() === 'yes') {
-            this.setState({beyondSecondary:'Yes'})
+            this.setState({education:'4', educationTitle:' Beyond Secondary'})
+          }else {
+            this.setState({education:''})
           }
         }
       }
@@ -385,6 +419,113 @@ export default class Paper extends Component<{}> {
   }
   editData () {
     this.setState({editData:true})
+  }
+  async updateImages () {
+    //Working with the knowledge that goals keys are one more than the index in state
+    //Update selected goals
+    var clone = this.state.images
+    clone[ Number (this.state.g1) - 1].selected = true
+    clone[ Number (this.state.g2) - 1].selected = true
+    clone[ Number (this.state.g3) - 1].selected = true
+    clone[ Number (this.state.g4) - 1].selected = true
+    clone[ Number (this.state.g5) - 1].selected = true
+    clone[ Number (this.state.g6) - 1].selected = true
+    //Update scores for selected goals
+    clone[ Number (this.state.g1) - 1 ].score = Number (this.state.s1)
+    clone[ Number (this.state.g2) - 1 ].score = Number (this.state.s2)
+    clone[ Number (this.state.g3) - 1 ].score = Number (this.state.s3)
+    clone[ Number (this.state.g4) - 1 ].score = Number (this.state.s4)
+    clone[ Number (this.state.g5) - 1 ].score = Number (this.state.s5)
+    clone[ Number (this.state.g6) - 1 ].score = Number (this.state.s6)
+
+    await this.setState({images:clone})
+  }
+  continue () {
+    this.updateImages()
+    var q1 = this.state.q1
+
+    var q2_goal1 = this.state.images[0].selected ? 1 : 0
+    var q2_goal2 = this.state.images[1].selected ? 1 : 0
+    var q2_goal3 = this.state.images[2].selected ? 1 : 0
+    var q2_goal4 = this.state.images[3].selected ? 1 : 0
+    var q2_goal5 = this.state.images[4].selected ? 1 : 0
+    var q2_goal6 = this.state.images[5].selected ? 1 : 0
+    var q2_goal7 = this.state.images[6].selected ? 1 : 0
+    var q2_goal8 = this.state.images[7].selected ? 1 : 0
+    var q2_goal9 = this.state.images[8].selected ? 1 : 0
+    var q2_goal10 = this.state.images[9].selected ? 1 : 0
+    var q2_goal11 = this.state.images[10].selected ? 1 : 0
+    var q2_goal12 = this.state.images[11].selected ? 1 : 0
+    var q2_goal13 = this.state.images[13].selected ? 1 : 0
+    var q2_goal14 = this.state.images[14].selected ? 1 : 0
+    var q2_goal15 = this.state.images[15].selected ? 1 : 0
+    var q2_goal16 = this.state.images[15].selected ? 1 : 0
+    var q2_goal17 = this.state.images[16].selected ? 1 : 0
+
+    var q3_goal1 = this.state.images[0].score
+    var q3_goal2 = this.state.images[1].score
+    var q3_goal3 = this.state.images[2].score
+    var q3_goal4 = this.state.images[3].score
+    var q3_goal5 = this.state.images[4].score
+    var q3_goal6 = this.state.images[5].score
+    var q3_goal7 = this.state.images[6].score
+    var q3_goal8 = this.state.images[7].score
+    var q3_goal9 = this.state.images[8].score
+    var q3_goal10 = this.state.images[9].score
+    var q3_goal11 = this.state.images[10].score
+    var q3_goal12 = this.state.images[11].score
+    var q3_goal13 = this.state.images[12].score
+    var q3_goal14 = this.state.images[13].score
+    var q3_goal15 = this.state.images[14].score
+    var q3_goal16 = this.state.images[15].score
+    var q3_goal17 = this.state.images[16].score
+    var data = {
+      q1: q1,
+      q2_goal1: q2_goal1,
+      q2_goal2: q2_goal2,
+      q2_goal3: q2_goal3,
+      q2_goal4: q2_goal4,
+      q2_goal5: q2_goal5,
+      q2_goal6: q2_goal6,
+      q2_goal7: q2_goal7,
+      q2_goal8: q2_goal8,
+      q2_goal9: q2_goal9,
+      q2_goal10: q2_goal10,
+      q2_goal11: q2_goal11,
+      q2_goal12: q2_goal12,
+      q2_goal13: q2_goal13,
+      q2_goal14: q2_goal14,
+      q2_goal15: q2_goal15,
+      q2_goal16: q2_goal16,
+      q2_goal17: q2_goal17,
+      q3_goal1: q3_goal1,
+      q3_goal2: q3_goal2,
+      q3_goal3: q3_goal3,
+      q3_goal4: q3_goal4,
+      q3_goal5: q3_goal5,
+      q3_goal6: q3_goal6,
+      q3_goal7: q3_goal7,
+      q3_goal8: q3_goal8,
+      q3_goal9: q3_goal9,
+      q3_goal10: q3_goal10,
+      q3_goal11: q3_goal11,
+      q3_goal12: q3_goal12,
+      q3_goal13: q3_goal13,
+      q3_goal14: q3_goal14,
+      q3_goal15: q3_goal15,
+      q3_goal16: q3_goal16,
+      q3_goal17: q3_goal17,
+    }
+    var userInfo = {
+      gender:this.state.gender,
+      age:this.state.age,
+      education:this.state.education,
+      country:this.state.country,
+      city:this.state.city,
+      email:this.state.email,
+      phone:this.state.phone,
+    }
+    Actions.replace('form', {data:data,userInfo: userInfo})
   }
   showEdit () {
     return (
@@ -473,7 +614,7 @@ export default class Paper extends Component<{}> {
           </ScrollView>
         <View style={{flexDirection:'row'}}>
           <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1}}>
-            <Button style={{backgroundColor:'#1eaaf1', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}}>Continue</Button>
+            <Button onPress={()=> this.continue()} style={{backgroundColor:'#1eaaf1', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}}>Continue</Button>
           </View>
         </View>
     </View>
@@ -485,20 +626,16 @@ export default class Paper extends Component<{}> {
       <View style={{flex:10, borderRadius:5, borderColor:'grey',borderWidth:2}}>
           {this.state.done ? <ScrollView style={{flex:1}}>
             <View style={{flex:1}}>
-              {this.state.gender === 'Male' && <Text style={styles.textListing}>Male: {this.state.male}</Text> }
-              {this.state.gender === 'Female' && <Text style={styles.textListing}>Female: {this.state.female}</Text> }
+              <Text style={styles.textListing}>Gender: {this.state.gender}</Text>
               <Text style={styles.textListing}>Age: {this.state.age}</Text>
-              {this.state.somePrimary !== '' && <Text style={styles.textListing}>Some Primary: {this.state.somePrimary}</Text> }
-              {this.state.finishedPrimary !== '' && <Text style={styles.textListing}>Finished Primary: {this.state.finishedPrimary}</Text> }
-              {this.state.someSecondary !== '' && <Text style={styles.textListing}>Some Secondary: {this.state.someSecondary}</Text> }
-              {this.state.beyondSecondary !== '' && <Text style={styles.textListing}>Beyond Secondary: {this.state.beyondSecondary}</Text> }
+              <Text style={styles.textListing}>Education: {this.state.educationTitle}</Text>
               <Text style={styles.textListing}>Country: {this.state.country}</Text>
               <Text style={styles.textListing}>State: {this.state.state}</Text>
               <Text style={styles.textListing}>City/Village: {this.state.city}</Text>
               <Text style={styles.textListing}>Email: {this.state.email}</Text>
               <Text style={styles.textListing}>Phone: {this.state.phone}</Text>
               <Text style={styles.textListing}>Disability: {this.state.disability}</Text>
-              <Text style={styles.textListing}>Others: {this.state.others}</Text>
+              <Text style={styles.textListing}>Type: {this.state.disability_type}</Text>
               <Text style={{alignItems:'center', flexDirection:'row', justifyContent:'center', fontSize:18}}>Questions </Text>
               <Text style={styles.textListing}>Question 1</Text>
               <Text style={styles.textListing}>Q1: {this.state.q1}</Text>

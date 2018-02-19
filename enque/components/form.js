@@ -31,6 +31,21 @@ export default class Form extends Component<{}> {
   }
   componentWillMount () {
     this.checkInternet()
+    if (this.props.userInfo) {
+      this.updateUserInfo()
+    }
+  }
+  updateUserInfo () {
+    var data = this.props.userInfo
+    this.setState({
+      gender:data.gender,
+      age:data.age,
+      education:data.education,
+      disability:data.disability,
+      city:data.city,
+      country:data.country,
+      email:data.email,
+    })
   }
   async checkInternet () {
     var status = await AsyncStorage.getItem('status')
@@ -150,11 +165,11 @@ export default class Form extends Component<{}> {
             </View>
             <View style={{flex:1, borderBottomWidth:1, marginBottom:20, flexDirection:'row', alignItems:'center'}}>
               <Image source={require('../assets/images/building.png')} style={styles.home}/>
-              <TextInput onChangeText={(text)=>this.setState({city:text})} style={{flex:1}} placeholder='City/Town'/>
+              <TextInput defaultValue={this.state.city} onChangeText={(text)=>this.setState({city:text})} style={{flex:1}} placeholder='City/Town'/>
             </View>
             <View style={{flex:1,borderBottomWidth:1,marginBottom:20,flexDirection:'row',alignItems:'center'}}>
               <Image source={require('../assets/images/18.png')} style={styles.home}/>
-              <TextInput onChangeText={(text)=>this.setState({age:text})} style={{flex:1}} placeholder='Age'/>
+              <TextInput defaultValue={this.state.age} onChangeText={(text)=>this.setState({age:text})} style={{flex:1}} placeholder='Age'/>
             </View>
             <TouchableHighlight style={{flex:1,borderBottomWidth:1,marginBottom:20,flexDirection:'row',alignItems:'center'}} onPress={Actions.countries}>
               <View style={{flex:1,flexDirection:'row', justifyContent:'space-between'}} >
