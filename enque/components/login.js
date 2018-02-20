@@ -9,6 +9,7 @@ import {
   TextInput,
   ScrollView,
   KeyboardAvoidingView,
+  AsyncStorage
 } from 'react-native';
 import {Actions} from 'react-native-router-flux'
 import Button from 'apsl-react-native-button'
@@ -23,24 +24,21 @@ export default class Login extends React.Component {
     }
   }
   login () {
-    this.setState({isLoading:true})
-    if (this.state.email === 'sdg@sdg.com' && this.state.password === 'pass'){
-        return Actions.reset('entryMethod')
-    }else {
-      alert('Wrong email/password combination')
-      this.setState({isLoading:false})
-    }
+    if (this.state.password !== '') {
+      this.setState({isLoading:true})
+      AsyncStorage.setItem('partner_id', this.state.password)
+      return Actions.reset('drawer')
+    }else alert('Incorrect partner id')
   }
-
   render() {
     return (
       <KeyboardAvoidingView style={{flex:1, backgroundColor:'#1d4869'}} behavior={Platform.OS === 'ios' ? 'padding' : null}>
         <ScrollView style={{flex:1}}>
           <View style={styles.container}>
-            <View style={{flex:3, alignItems:'center', justifyContent:'center', marginTop:20}}>
+            <View style={styles.logoContainer}>
               <Image source={require('../assets/images/icon.png')} resizeMode={'contain'} style={styles.logo} />
             </View>
-            <View style={{flex:3, margin:10, justifyContent:'center', alignItems:'center', marginTop:30}}>
+            <View style={styles.inputContainer}>
               <View style={{flex:1, width:400, marginTop:10}}>
                 <TextInput
                   style={{
@@ -65,8 +63,8 @@ export default class Login extends React.Component {
                 />
               </View>
             </View>
-            <Button isLoading={this.state.isLoading} onPress={()=>this.login()} style={{backgroundColor: '#1eaaf1', borderWidth:0, borderColor:'transparent', margin:70}} textStyle={{fontSize: 20, color:'white'}}>
-              Login
+            <Button isLoading={this.state.isLoading} onPress={()=>this.login()} style={styles.buttonStyle} textStyle={styles.buttonText}>
+              Begin
             </Button>
           </View>
         </ScrollView>
@@ -89,4 +87,27 @@ const styles = StyleSheet.create({
   app: {
     flex:0.5,
   },
+  logoContainer:{
+    flex:3,
+    alignItems:'center',
+    justifyContent:'center',
+    marginTop:20
+  },
+  inputContainer:{
+    flex:3,
+    margin:10,
+    justifyContent:'center',
+    alignItems:'center',
+    marginTop:30
+  },
+  buttonStyle:{
+    backgroundColor: '#1eaaf1',
+    borderWidth:0,
+    borderColor:'transparent',
+    margin:70
+  },
+  buttonText:{
+    fontSize: 20,
+    color:'white'
+  }
 });

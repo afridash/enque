@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   Platform,
@@ -59,7 +53,7 @@ export default class Dashboard extends Component<{}> {
       <View style={styles.container}>
         <Header title='Surveys' upload={true} />
         <View style={styles.secondaryContainer}>
-          {this.state.noSurveys ? <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+          {this.state.noSurveys ? <View style={styles.none}>
             <Text style={{fontSize:16, fontWeight:'500'}}>No Offline Surveys</Text>
           </View>: <FlatList
           style={{flex:1, marginTop:2}}
@@ -90,4 +84,9 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  none:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center'
+  }
 });

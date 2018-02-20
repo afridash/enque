@@ -225,7 +225,7 @@ export default class SurveyPage2 extends Component {
   renderItem = ({item, index}) => {
     return (
       <TouchableHighlight onPress={()=>this.toggleSelected(item, index)}
-         key={index} style={{flexDirection:'row', alignItems:'center', marginBottom:5}}>
+         key={index} style={styles.itemContainer}>
         <View style={{flex:1, flexDirection:'row', backgroundColor: (item.selected) ? item.color : 'white', alignItems:'center'}}>
           <View style={{flexDirection:'row'}}>
             <Image source={item.image} style={{width:100, height:100,}} resizeMode={'stretch'} />
@@ -242,18 +242,16 @@ export default class SurveyPage2 extends Component {
          key={index} style={{justifyContent:'center', marginBottom:5}}>
         <View style={{flex:1, flexDirection:'row', backgroundColor: (item.selected) ? item.color : 'white', alignItems:'center'}}>
           <Image source={item.image} style={{width:100, height:100,}} resizeMode={'stretch'} />
-          <Text style={{fontSize:20, fontWeight:'600', color:'white', flex:1}}>{item.title}</Text>
+          <Text style={styles.title}>{item.title}</Text>
         </View>
-        <View style={{padding:5, flexDirection:'row', justifyContent:'space-between'}}>
+        <View style={styles.info}>
           <Text>1. Got Worse </Text>
           <Text>3. Stayed the same </Text>
           <Text>5. Got better</Text>
         </View>
-        <View style={{flex:1, padding:10, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+        <View style={styles.radioGroup}>
           <RadioForm
             style={{flex:1, flexDirection:'row'}}
-            formHorizontal={true}
-            labelHorizontal={true}
             animation={true}
             radio_props={radio_props}
             initial={0}
@@ -263,8 +261,13 @@ export default class SurveyPage2 extends Component {
         </View>
     )
   }
+  continue () {
+    if (this.selected < 6)
+      alert('Six Goals must be selected')
+    else this.setState({selectionDone:true})
+  }
   listFooter = () => {
-    return (<Button style={styles.submit} textStyle={{fontSize: 18, color:'white'}} onPress={()=>this.setState({selectionDone:true})}>NEXT</Button>)
+    return (<Button style={styles.submit} textStyle={{fontSize: 18, color:'white'}} onPress={()=>this.continue()}>NEXT</Button>)
   }
   showList () {
     return (
@@ -285,7 +288,7 @@ export default class SurveyPage2 extends Component {
   showQuestions () {
     return (
       <View style={{flex:1}}>
-        <Text style={{textAlign:'center', color:'red', justifyContent:'center', fontSize:16, padding:10}} onPress={()=>this.setState({selectionDone:false})}>Show Goals</Text>
+        <Text style={styles.showGoals} onPress={()=>this.setState({selectionDone:false})}>Show Goals</Text>
         <Text style={styles.question}>WOULD YOU SAY THE SITUATION ON YOUR CHOSEN GOAL HAS GOT BETTER, STAYED THE SAME OR GOT WORSE OVER THE PAST 12 MONTHS?</Text>
         <View style={{flex:1}}>
           <FlatList
@@ -410,6 +413,35 @@ const styles = StyleSheet.create({
      height:40,
     borderColor:'transparent',
     marginRight: 10,
-
+  },
+  showGoals:{
+    textAlign:'center',
+    color:'red',
+    justifyContent:'center',
+    fontSize:16,
+    padding:10
+  },
+  radioGroup:{
+    flex:1,
+    padding:10,
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  info:{
+    padding:5,
+    flexDirection:'row',
+    justifyContent:'space-between'
+  },
+  title:{
+    fontSize:20,
+    fontWeight:'600',
+    color:'white',
+    flex:1
+  },
+  itemContainer:{
+    flexDirection:'row',
+    alignItems:'center',
+    marginBottom:5
   },
 });

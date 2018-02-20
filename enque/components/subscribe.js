@@ -103,8 +103,8 @@ export default class Subscribe extends Component<{}> {
             <TextInput defaultValue={this.state.email} keyboardType='email-address' onChangeText={(email)=>this.setState({email})} style={{flex:1, height:70, fontSize:16}} placeholder='Email'/>
           </View>
         </View>
-        <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1}}>
-          <Button isLoading={this.state.isLoading} onPress={this.save} style={{backgroundColor:'#1eaaf1', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}}>Subscribe</Button>
+        <View style={styles.buttonContainer}>
+          <Button isLoading={this.state.isLoading} onPress={this.save} style={styles.buttonStyle} textStyle={{fontSize: 18, color:'white'}}>Subscribe</Button>
         </View>
       </View>
       </ScrollView>
@@ -127,5 +127,18 @@ const styles = StyleSheet.create({
   },
   text:{
     fontSize: 20,
+    },
+    buttonContainer:{
+      alignItems:'center',
+      justifyContent:'center',
+      flexDirection:'row',
+      flex:1,
+    },
+    buttonStyle:{
+      backgroundColor:'#1eaaf1',
+      height:40,
+      width:100,
+      borderColor:'transparent',
+      margin: 10
     },
 });

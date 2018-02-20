@@ -1,3 +1,14 @@
+/*
+  Author: Richard Igbiriki
+  @2018
+
+  Paper scans are performed here.
+
+  Scans are either edited for appropriate fields then passed to form.js as params
+  Or they are submitted directly to the databases (offline/online)
+
+  Text parsing is based on criteria searches...
+*/
 import React, { Component } from 'react';
 import {Platform,
   StyleSheet,
@@ -199,8 +210,9 @@ export default class Paper extends Component<{}> {
     }
   }
   launchCamera () {
+    //After four camera launches, continue to manual survey entry
     if (this.state.launches === 3) {
-      return Actions.survey1()
+      return Actions.survey()
     }else {
       this.startCamera()
     }
@@ -232,8 +244,10 @@ export default class Paper extends Component<{}> {
   }
   async uploadImage () {
     this.setState({isLoading:true})
+    //Call Google Cloud Vision Api to return text labels of image
     let result = await checkForLabels(this.state.dataString)
     await this.setState({returnedText:result.responses[0].textAnnotations[0].description, isLoading:false, done:true})
+    //Format user info based on text returned
     this.getUserDetails()
     this.getQ1()
     this.getQ2()
@@ -791,11 +805,9 @@ async function checkForLabels(base64) {
                 ]
             })
         }).then((response) => {
-          console.log('success');
             return response.json();
         }, (err) => {
             console.error('promise rejected')
-            console.error(err)
         });
 }
 const styles = StyleSheet.create({

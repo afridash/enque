@@ -1,8 +1,6 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+/*
+Author: Richard Igbiriki 
+*/
 
 import React, { Component } from 'react';
 import {
@@ -15,7 +13,7 @@ import {
   Image,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux'
-import {queryAll, deleteSurvey} from '../databases/schemas'
+import {queryAll, deleteSurvey, queryAllSubscribers, deleteSubscriber} from '../databases/schemas'
 import realm from '../databases/schemas'
 export default class Side extends Component<{}> {
   constructor (props) {
@@ -23,6 +21,7 @@ export default class Side extends Component<{}> {
     this.state = {
       translated:'',
       surveys:[],
+      subscribers:[],
     }
   }
   componentWillMount () {
@@ -62,6 +61,24 @@ export default class Side extends Component<{}> {
     }catch(error) {
       alert(error)
     }
+    this.uploadSubscribers()
+  }
+  async uploadSubscribers () {
+    this.state.subscribers.forEach( async (subscriber) => {
+      let response = await fetch('https://afridash.com/enque/saveSubscriber.php',{
+        method:'POST',
+        headers:{
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(subscriber)
+      });
+      let responseJson = await response.json();
+      if(responseJson.success === '1'){
+        deleteSubscriber(subscriber.id).then().catch((error)=>{
+          alert(error)
+        })
+      }
+    })
   }
   render() {
     return (
@@ -82,11 +99,9 @@ export default class Side extends Component<{}> {
         <TouchableHighlight onPress={()=>Actions.replace('myworld')} style={styles.category}>
           <Text style={styles.text}>My World 2030</Text>
         </TouchableHighlight>
-        <TouchableHighlight onPress={()=>Actions.replace('partners')} style={styles.category}>
-          <Text style={styles.text}>Partners</Text>
-        </TouchableHighlight>
-        <TouchableHighlight  style={styles.category} onPress={()=>Actions.replace('about')}>
-            <Text style={styles.text}>About Enque</Text>
+
+        <TouchableHighlight  style={styles.category} onPress={()=>Actions.replace('login')}>
+            <Text style={styles.text}>Change Partner Id</Text>
         </TouchableHighlight>
         {this.state.upload &&
         <TouchableHighlight onPress={()=>this.uploadSurveys()} style={styles.upload}>

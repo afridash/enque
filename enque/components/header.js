@@ -1,3 +1,11 @@
+/*
+Author: Richard Igbiriki
+@2018
+1. Previously stored surveys are retrieved...if there is data connection
+2. Display upload button on dashboard and entry method
+3. Upload surveys and subscribers
+4. Delete stored information from device
+*/
 import {
  View,
  Image,
@@ -21,7 +29,6 @@ export default class Header extends Component {
   }
   async componentWillMount (){
     this.checkInternet()
-    this.loadData()
   }
   loadData () {
     queryAll().then((surveys)=>{
@@ -39,6 +46,7 @@ export default class Header extends Component {
     var status = await AsyncStorage.getItem('status')
     if (status === 'true') {
       this.setState({upload:true})
+      this.loadData()
     }
   }
   async uploadSurveys () {
@@ -112,6 +120,11 @@ export default class Header extends Component {
                   <Image
                     source={require('../assets/images/icon.png')}
                     style={[styles.icon]} />
+                    {this.state.surveys.length > 0 && <TouchableWithoutFeedback  onPress={()=>this.uploadSurveys()}>
+                      <Image
+                        source={require('../assets/images/upload.png')}
+                        style={[styles.backButton, {alignItems:'flex-end', justifyContent:'flex-end'}]} />
+                      </TouchableWithoutFeedback>}
                   </View>
                 )
               }
@@ -119,22 +132,21 @@ export default class Header extends Component {
           }
 
       {this.props.title && <View style={styles.titleContainer}><Text style={[styles.title]}>{this.props.title}</Text></View>}
-      <View style={styles.actions}>
-        {this.state.upload && this.props.title ==='Surveys' && <TouchableWithoutFeedback  onPress={()=>this.uploadSurveys()}>
+        {this.state.upload && this.props.title ==='Surveys' && <View style={styles.actions}><TouchableWithoutFeedback  onPress={()=>this.uploadSurveys()}>
           <Image
             source={require('../assets/images/upload.png')}
             style={[styles.backButton]} />
-          </TouchableWithoutFeedback>}
-        {!this.props.noAdd && <TouchableWithoutFeedback  onPress={Actions.survey1}>
+          </TouchableWithoutFeedback></View>}
+
+        {!this.props.noAdd && <View style={styles.actions}><TouchableWithoutFeedback onPress={Actions.survey}>
           <View style={{flexDirection:'row', margin:15, justifyContent:'flex-start'}}>
               <Text style={styles.addText}>Add</Text>
               <Image
                 source={require('../assets/images/add.png')}
                 style={[styles.add]} />
           </View>
-          </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback></View>
         }
-      </View>
 
     </View>
 </View>
@@ -207,9 +219,6 @@ const styles = {
     width:50,
     height:50,
     margin:5,
-    justifyContent:'center',
-    alignItems: 'center',
     resizeMode:'contain',
-    flex:1,
   },
 };

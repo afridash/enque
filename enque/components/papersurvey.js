@@ -24,7 +24,7 @@ export default class PaperSurvey extends Component<{}> {
           <View style={{flex:1}}></View>
         <View style={{flex:1}}>
           <Text style={styles.text}>
-            Start Scanning the survey form of 1 person. Click on Start to begin, and click on End to save the form for that person
+            Survey forms are scanned and processed to return the text detected on the form. The text should be edited for accuracy before submission. Click on Start to begin
           </Text>
         </View>
           <Button onPress={Actions.paper} style={{backgroundColor:'#1eaaf1', borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}}>Start</Button>

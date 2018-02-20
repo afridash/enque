@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   Platform,
@@ -41,8 +35,8 @@ export default class Index extends Component<{}> {
         <Text style={styles.subtitle}>
           ~Voices Heard~
         </Text>
-        <Button onPress={Actions.login} style={{backgroundColor: '#1eaaf1', borderWidth:0, borderColor:'transparent', margin:70}} textStyle={{fontSize: 20, color:'white'}}>
-          Begin
+        <Button onPress={Actions.login} style={styles.buttonStyle} textStyle={{fontSize: 20, color:'white'}}>
+          Login
         </Button>
         <View style={styles.app}>
         </View>
@@ -77,5 +71,11 @@ const styles = StyleSheet.create({
     fontSize:20,
     color:'white',
     margin:10,
+  },
+  buttonStyle:{
+    backgroundColor:'#1eaaf1',
+    borderWidth:0,
+    borderColor:'transparent',
+    margin:70,
   }
 });

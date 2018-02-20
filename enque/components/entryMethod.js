@@ -14,6 +14,7 @@ import {
   View,
   FlatList,
   TouchableHighlight,
+  AsyncStorage,
 } from 'react-native';
 
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
@@ -28,7 +29,12 @@ export default class EntryMethod extends Component<{}> {
     this.state = {
     }
   }
-
+  async componentWillMount () {
+    var item = await AsyncStorage.getItem('partner_id')
+    if (!item) {
+      return Actions.reset('index')
+    }
+  }
   render () {
     return (
 
@@ -36,7 +42,7 @@ export default class EntryMethod extends Component<{}> {
           <Header noAdd={true} icon={true} />
           <View style={styles.secondaryContainer}>
             <View style={{flex:1}}>
-              <TouchableHighlight style={{flex:1}} underlayColor='transparent' onPress={Actions.survey1}>
+              <TouchableHighlight style={{flex:1}} underlayColor='transparent' onPress={Actions.survey}>
                 <View style={{backgroundColor:'#BF360C', margin:10, flex:1, justifyContent:'space-between'}}>
                   <View>
                     <Text style={styles.title}>Entry Method</Text>
