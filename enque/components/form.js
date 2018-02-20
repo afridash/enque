@@ -139,7 +139,7 @@ export default class Form extends Component<{}> {
           </Text>
         </View>
           <View style={styles.list}>
-            <View style={{flex:1, borderBottomWidth:1,marginBottom:20, flexDirection:'row', alignItems:'center'}}>
+            <View style={styles.divider}>
               <Image source={require('../assets/images/Gender.png')} style={styles.home}/>
               <Picker
                 style={{flex:1}}
@@ -150,7 +150,7 @@ export default class Form extends Component<{}> {
                 <Picker.Item label="Male" value="male" />
               </Picker>
             </View>
-            <View style={{flex:1,borderBottomWidth:1, marginBottom:20,flexDirection:'row', alignItems:'center'}}>
+            <View style={styles.divider}>
               <Image source={require('../assets/images/edu.png')} style={styles.home}/>
               <Picker
                 style={{flex:1}}
@@ -163,24 +163,25 @@ export default class Form extends Component<{}> {
                 <Picker.Item label="Beyond Secondary" value="4" />
               </Picker>
             </View>
-            <View style={{flex:1, borderBottomWidth:1, marginBottom:20, flexDirection:'row', alignItems:'center'}}>
-              <Image source={require('../assets/images/building.png')} style={styles.home}/>
-              <TextInput defaultValue={this.state.city} onChangeText={(text)=>this.setState({city:text})} style={{flex:1}} placeholder='City/Town'/>
-            </View>
-            <View style={{flex:1,borderBottomWidth:1,marginBottom:20,flexDirection:'row',alignItems:'center'}}>
-              <Image source={require('../assets/images/18.png')} style={styles.home}/>
-              <TextInput defaultValue={this.state.age} onChangeText={(text)=>this.setState({age:text})} style={{flex:1}} placeholder='Age'/>
-            </View>
-            <TouchableHighlight style={{flex:1,borderBottomWidth:1,marginBottom:20,flexDirection:'row',alignItems:'center'}} onPress={Actions.countries}>
+            <TouchableHighlight style={styles.divider} onPress={Actions.countries}>
               <View style={{flex:1,flexDirection:'row', justifyContent:'space-between'}} >
                 <View style={{flex:1, flexDirection:'row',alignItems:'center'}}>
-                  <Image source={require('../assets/images/loc.png')} style={styles.home}/>
+                  <Image source={require('../assets/images/globe2.png')} style={styles.home}/>
                   <Text>{this.state.country}</Text>
                 </View>
                 <Image  source={require('../assets/images/rightarrow.png')} style={styles.right}/>
             </View>
           </TouchableHighlight>
-            <View style={{flex:1,borderBottomWidth:1,flexDirection:'row', alignItems:'center'}}>
+            <View style={styles.divider}>
+              <Image source={require('../assets/images/loc.png')} style={styles.home}/>
+              <TextInput defaultValue={this.state.city} onChangeText={(text)=>this.setState({city:text})} style={{flex:1}} placeholder='City/Town'/>
+            </View>
+            <View style={styles.divider}>
+              <Image source={require('../assets/images/age.png')} style={styles.home}/>
+              <TextInput defaultValue={this.state.age} onChangeText={(text)=>this.setState({age:text})} style={{flex:1}} placeholder='Age'/>
+            </View>
+
+            <View style={{flex:1,borderBottomWidth:0.5,flexDirection:'row', alignItems:'center', borderColor:'lightgrey'}}>
               <Image source={require('../assets/images/disability.png')} style={styles.home}/>
               <Picker
                 style={{flex:1}}
@@ -235,6 +236,14 @@ const styles = StyleSheet.create({
     height: 30,
     alignItems:'flex-end',
     margin:10,
+  },
+  divider:{
+    flex:1,
+    borderBottomWidth:0.5,
+    marginBottom:20,
+    flexDirection:'row',
+    alignItems:'center',
+    borderColor:'lightgrey',
   },
   right:{
     resizeMode: 'contain',

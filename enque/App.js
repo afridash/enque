@@ -71,10 +71,10 @@ export default class App extends React.Component {
                   */}
 
                   <Scene hideNavBar>
-                      <Scene key="dashboard" component={Dashboard} />
-                      <Scene key="form"   component={Form}/>
-                      <Scene key="subscribe"  component={Subscribe} />
                       <Scene key="entryMethod" initial component={EntryMethod} />
+                      <Scene key="form"  component={Form}/>
+                      <Scene key="subscribe"  component={Subscribe} />
+                      <Scene key="entryMethod"  component={EntryMethod} />
                       <Scene key="dashboard"  component={Dashboard} />
                       <Scene key="myworld" component={MyWorld} />
                       <Scene key="sustainable" component={Sustainable} />
