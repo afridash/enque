@@ -77,11 +77,11 @@ export default class App extends React.Component {
                       <Scene key="dashboard" component={Dashboard} />
                       <Scene key="login" component={Login} />
                       <Scene key="about" component={About} />
-                      <Scene key="form"   component={Form}/>
+                      <Scene key="form"  initial component={Form}/>
                       <Scene key="submit"  component={Submit} />
                       <Scene key="subscribe"  component={Subscribe} />
                       <Scene key="partners" component={Partners} />
-                      <Scene key="entryMethod" initial component={EntryMethod} />
+                      <Scene key="entryMethod"  component={EntryMethod} />
                       <Scene key="dashboard"  component={Dashboard} />
                       <Scene key="myworld" component={MyWorld} />
                       <Scene key="sustainable" component={Sustainable} />

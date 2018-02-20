@@ -3,6 +3,7 @@ import {Platform, StyleSheet,Text,View,Image, TextInput,Picker, TouchableHighlig
 import Button from 'apsl-react-native-button'
 import { Actions } from 'react-native-router-flux';
 import Header from './header'
+import countryList from './countryList'
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
 Translation.setConfig(ProviderTypes.Google, key,'ig');
@@ -11,14 +12,7 @@ export default class Countries extends Component<{}> {
   constructor (props) {
     super (props)
     this.state = {
-      data:[
-       {key:1, name:'Nigeria'},
-       {key:2, name:'Ghana'},
-       {key:3, name:'Niger'},
-       {key:4, name:'Senegal'},
-       {key:5, name:'Congo'}],
-      translated:'',
-      countries:[]
+      data:countryList
     }
     this.countries = this.state.data
   }
@@ -48,6 +42,7 @@ export default class Countries extends Component<{}> {
       else this.setState({noCountries:true})
     }
   }
+  _keyExtractor = (item, index) => item.code
   render (){
     return (
       <View style={styles.container}>
@@ -65,6 +60,7 @@ export default class Countries extends Component<{}> {
         data={this.state.data}
         ItemSeparatorComponent={()=><View style={styles.separator}></View>}
         renderItem={this._renderItem}
+        keyExtractor={this._keyExtractor}
         />
         </View>
       </View>
