@@ -14,6 +14,8 @@ import Button from 'apsl-react-native-button'
 import Header from './header'
 import { Actions } from 'react-native-router-flux';
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
+import {insertSurvey} from '../databases/schemas'
+import realm from '../databases/schemas'
 var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
 var ImagePicker = require('react-native-image-picker')
 Translation.setConfig(ProviderTypes.Google, key,'ig');
@@ -440,7 +442,7 @@ export default class Paper extends Component<{}> {
 
     await this.setState({images:clone})
   }
-  continue () {
+  continue (type) {
     this.updateImages()
     var q1 = this.state.q1
 
@@ -524,8 +526,77 @@ export default class Paper extends Component<{}> {
       city:this.state.city,
       email:this.state.email,
       phone:this.state.phone,
+      disability:this.state.disability_type
     }
-    Actions.replace('form', {data:data,userInfo: userInfo})
+    if (type === 'edit') {
+      Actions.replace('form', {data:data,userInfo: userInfo})
+    } else {
+      this.saveSurvey(data, userInfo)
+    }
+  }
+  saveSurvey (data, userInfo) {
+    this.setState({loading:true})
+    var auth = this.authenticateData()
+    if (auth) {
+      if (userInfo.disability === '0') {
+        data['disability'] = 'no'
+        data['disability_type'] = 0
+      }else {
+        data['disability'] = 'yes'
+        data['disability_type'] = Number(userInfo.disability)
+      }
+      data['gender'] = this.state.gender
+      data['education_level'] = Number(this.state.education)
+      data['city'] = this.state.city
+      data['age'] = Number(this.state.age)
+      data['country'] = this.state.country
+      data['partner_id'] = 'Afridash Inc'
+      data['user_id'] = 'Richard_igbiriki'
+      data['start'] = Date.now()
+      data['end'] = Date.now()
+      data['method'] = 'online'
+      data['submission_date'] = Date.now()
+      data['id'] = Math.floor(Date.now()/1000)
+      if (this.state.upload) {
+        this.saveOnline(data)
+      }else {
+        insertSurvey(data).then(()=>{
+          this.setState({loading:false})
+          return Actions.subscribe({email:this.state.email})
+        }).catch((error)=> {
+          this.setState({loading:false})
+           alert(`Insert error ${error}`)
+        })
+      }
+    }else {
+      alert('Incomplete form. Fill all fields.')
+    }
+  }
+  authenticateData () {
+    return this.state.disability && this.state.gender && this.state.education && this.state.age && this.state.country && this.state.city
+  }
+  async saveOnline (data) {
+    let response = await fetch('https://afridash.com/enque/saveToMysql.php',{
+      method:'POST',
+      headers:{
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+    let responseJson = await response.json()
+    if (responseJson.success === '1') {
+      this.setState({loading:false})
+      return Actions.subscribe({email:this.state.email})
+    }else {
+      alert(responseJson.success)
+      insertSurvey(data).then(()=>{
+        this.setState({loading:false})
+        return Actions.subscribe({email:this.state.email})
+      }).catch((error)=> {
+        this.setState({loading:false})
+         alert(`Insert error ${error}`)
+      })
+    }
   }
   showEdit () {
     return (
@@ -614,7 +685,7 @@ export default class Paper extends Component<{}> {
           </ScrollView>
         <View style={{flexDirection:'row'}}>
           <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1}}>
-            <Button onPress={()=> this.continue()} style={{backgroundColor:'#1eaaf1', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}}>Continue</Button>
+            <Button onPress={()=> this.continue('edit')} style={{backgroundColor:'#1eaaf1', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}}>Continue</Button>
           </View>
         </View>
     </View>
@@ -661,7 +732,7 @@ export default class Paper extends Component<{}> {
       {this.state.submittable &&
         <View style={{flex:1.5, flexDirection:'row'}}>
           <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1}}>
-            <Button style={{backgroundColor:'#27ae60', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}} onPress={Actions.submit}>Submit</Button>
+            <Button isLoading={this.state.loading} style={{backgroundColor:'#27ae60', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}} onPress={()=>this.continue('save')}>Submit</Button>
           </View>
           <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1}}>
             <Button onPress={()=> this.editData()} style={{backgroundColor:'#3498db', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}}>Edit</Button>

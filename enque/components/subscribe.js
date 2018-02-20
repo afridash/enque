@@ -26,6 +26,9 @@ export default class Subscribe extends Component<{}> {
   }
   componentWillMount () {
     this.checkInternet()
+    if (this.props.email) {
+      this.setState({email:this.props.email})
+    }
   }
   async checkInternet () {
     var status = await AsyncStorage.getItem('status')
@@ -97,7 +100,7 @@ export default class Subscribe extends Component<{}> {
         <View style={styles.list}>
           <View style={{flex:1, borderBottomWidth: (Platform.OS === 'ios') ? 1 : 0,marginBottom:20, flexDirection:'row', alignItems:'center'}}>
             <Text style={{fontSize:16}} >Email address: &nbsp; &nbsp;</Text>
-            <TextInput keyboardType='email-address' onChangeText={(email)=>this.setState({email})} style={{flex:1, height:70, fontSize:16}} placeholder='Email'/>
+            <TextInput defaultValue={this.state.email} keyboardType='email-address' onChangeText={(email)=>this.setState({email})} style={{flex:1, height:70, fontSize:16}} placeholder='Email'/>
           </View>
         </View>
         <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1}}>

@@ -87,7 +87,7 @@ export default class Form extends Component<{}> {
       }else {
         insertSurvey(data).then(()=>{
           this.setState({isLoading:false})
-          return Actions.subscribe()
+          return Actions.subscribe({email:this.state.email})
         }).catch((error)=> {
           this.setState({isLoading:false})
            alert(`Insert error ${error}`)
@@ -96,7 +96,6 @@ export default class Form extends Component<{}> {
     }else {
       alert('Incomplete form. Fill all fields.')
     }
-
   }
   authenticateData () {
     return this.state.disability && this.state.gender && this.state.education && this.state.age && this.state.country && this.state.city
@@ -112,12 +111,12 @@ export default class Form extends Component<{}> {
     let responseJson = await response.json()
     if (responseJson.success === '1') {
       this.setState({isLoading:false})
-      return Actions.subscribe()
+      return Actions.subscribe({email:this.state.email})
     }else {
       alert(responseJson.success)
       insertSurvey(data).then(()=>{
         this.setState({isLoading:false})
-        return Actions.subscribe()
+        return Actions.subscribe({email:this.state.email})
       }).catch((error)=> {
         this.setState({isLoading:false})
          alert(`Insert error ${error}`)

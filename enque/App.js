@@ -81,7 +81,7 @@ export default class App extends React.Component {
                       <Scene key="submit"  component={Submit} />
                       <Scene key="subscribe"  component={Subscribe} />
                       <Scene key="partners" component={Partners} />
-                      <Scene key="entryMethod" component={EntryMethod} />
+                      <Scene key="entryMethod" initial component={EntryMethod} />
                       <Scene key="dashboard"  component={Dashboard} />
                       <Scene key="myworld" component={MyWorld} />
                       <Scene key="sustainable" component={Sustainable} />
@@ -93,7 +93,7 @@ export default class App extends React.Component {
                       <Scene key="paper"  component={Paper} />
                       <Scene key="countries"   component={Countries} />
                       <Scene key="papersurvey" component={PaperSurvey} />
-                      <Scene key="paper" initial component={Paper} />
+                      <Scene key="paper" component={Paper} />
                   </Scene>
                 </Drawer>
               </Stack>
