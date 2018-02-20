@@ -23,6 +23,8 @@ import SurveyPage2 from './surveyPage2'
 import Header from './header'
 var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
 Translation.setConfig(ProviderTypes.Google, key,'ig')
+
+//Array Variable below holds the images of the 17 SDGs
 var sdgImages = [
   {
     key:1,
@@ -161,6 +163,7 @@ var sdgImages = [
     description:'Strengthen the means of implementation and revitalize the global partnership for sustainable development'
   }
 ];
+
 export default class SurveyPage1 extends Component<{}> {
   constructor (props) {
     super (props)
@@ -168,6 +171,8 @@ export default class SurveyPage1 extends Component<{}> {
       translated:''
     }
   }
+
+  //Contains the actual survey - oh well, page 1 of it!
   showPage1 () {
     return (
       <ScrollView style={{flex:1, marginTop:20}}>
@@ -214,6 +219,7 @@ export default class SurveyPage1 extends Component<{}> {
       </ScrollView>
     )
   }
+
   render() {
     return (
       <View style={styles.container}>
