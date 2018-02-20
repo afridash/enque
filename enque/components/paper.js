@@ -189,6 +189,15 @@ export default class Paper extends Component<{}> {
   componentWillMount () {
     this.launchCamera()
   }
+  componentDidMount () {
+    this.checkInternet()
+  }
+  async checkInternet () {
+    var status = await AsyncStorage.getItem('status')
+    if (status === 'true') {
+      this.setState({upload:true})
+    }
+  }
   launchCamera () {
     if (this.state.launches === 3) {
       return Actions.survey1()
@@ -731,7 +740,7 @@ export default class Paper extends Component<{}> {
     <View style={{flex:1.5, flexDirection:'row'}}>
       {this.state.submittable &&
         <View style={{flex:1.5, flexDirection:'row'}}>
-          <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1}}>
+          <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1, marginLeft:10}}>
             <Button isLoading={this.state.loading} style={{backgroundColor:'#27ae60', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}} onPress={()=>this.continue('save')}>Submit</Button>
           </View>
           <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1}}>

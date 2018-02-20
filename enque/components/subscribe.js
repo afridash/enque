@@ -78,7 +78,7 @@ export default class Subscribe extends Component<{}> {
     let responseJson = await response.json()
     if (responseJson.success === '1') {
       this.setState({isLoading:false})
-      return Actions.subscribe()
+      return Actions.entryMethod()
     }else {
       this.saveOffline(user)
     }

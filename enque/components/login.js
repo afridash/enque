@@ -41,27 +41,6 @@ export default class Login extends React.Component {
               <Image source={require('../assets/images/icon.png')} resizeMode={'contain'} style={styles.logo} />
             </View>
             <View style={{flex:3, margin:10, justifyContent:'center', alignItems:'center', marginTop:30}}>
-              <View style={{width:400, flex:1, borderBottomWidth: (Platform.OS === 'ios') ? 1 : 0, borderColor:'white'}}>
-                <TextInput
-                  style={{
-                    height:50,
-                    fontSize:16,
-                    color:'white',
-                    marginLeft:20,
-                    textAlign:'center',
-                    marginRight:20,
-                    flex:1
-                  }}
-                  keyboardType='email-address'
-                  placeholder='Email'
-                  autoCapitalize='none'
-                  autoCorrect={false}
-                  placeholderTextColor={'white'}
-                  onChangeText={(email) => this.setState({email})}
-                  onSubmitEditing={() => { this.passwordinput.focus() }}
-                  returnKeyType='next'
-                />
-              </View>
               <View style={{flex:1, width:400, marginTop:10}}>
                 <TextInput
                   style={{
@@ -78,7 +57,7 @@ export default class Login extends React.Component {
                   autoCorrect={false}
                   autoCapitalize='none'
                   keyboardAppearance='dark'
-                  placeholder={'Password '}
+                  placeholder={'Partner Id '}
                   placeholderTextColor={'white'}
                   onSubmitEditing={() => { this.login() }}
                   onChangeText={(password) => this.setState({password})}
