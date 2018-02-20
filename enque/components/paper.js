@@ -579,6 +579,7 @@ export default class Paper extends Component<{}> {
       }
     }else {
       alert('Incomplete form. Fill all fields.')
+      this.setState({loading:false})
     }
   }
   authenticateData () {

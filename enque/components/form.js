@@ -94,6 +94,7 @@ export default class Form extends Component<{}> {
         })
       }
     }else {
+      this.setState({isLoading:false})
       alert('Incomplete form. Fill all fields.')
     }
   }
