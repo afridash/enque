@@ -24,6 +24,8 @@ export default class SurveyPage1 extends Component<{}> {
       translated:''
     }
   }
+
+  //Contains the actual survey - oh well, page 1 of it!
   showPage1 () {
     return (
       <ScrollView style={{flex:1, marginTop:20}}>
@@ -70,6 +72,7 @@ export default class SurveyPage1 extends Component<{}> {
       </ScrollView>
     )
   }
+
   render() {
     return (
       <View style={styles.container}>

@@ -24,6 +24,8 @@ import Button from 'apsl-react-native-button'
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
 Translation.setConfig(ProviderTypes.Google, key,'ig');
+
+//For the radio buttons on the second page of the survey
 var radio_props = [
   {label: '1', value: 1 },
   {label: '2', value: 2 },
@@ -36,6 +38,8 @@ export default class SurveyPage2 extends Component {
     super (props)
     this.state = {
       translated:'',
+
+      //Holds the images of the 17 SDGs
       images:[
         {
           key:1,
@@ -181,18 +185,25 @@ export default class SurveyPage2 extends Component {
     this.selectedImages = []
     this.feedbacks = []
   }
+
+  //Check for internet availability once the app mounts
   componentWillMount () {
     this.checkInternet()
   }
+
+  //This function does the actual "check" for internet availability
   async checkInternet () {
     var status = await AsyncStorage.getItem('status')
     if (status === 'true') {
       this.setState({upload:true})
     }
   }
+
   componentWillUnmount () {
     this.setState({images:[], selectedImages:[]})
   }
+
+  //Keeps track so that the user can't select more than 6 goals
   toggleSelected (item, index) {
     this.feedbacks = []
      if (item.selected) {
@@ -213,15 +224,20 @@ export default class SurveyPage2 extends Component {
        this.feedbacks[image.key] = 1
      })
   }
+
+  //Ensures that the 6 selected above are the ones on the next page where the user answers some questions about each
   async setSelected (item, index) {
     item.selected = !item.selected
     var clone = this.state.images
     clone[index] = item
     await this.setState({images:clone})
   }
+
+  //records the responses of the user on the 6 goals selected
   handleRadio (sdgId, score) {
     this.feedbacks[sdgId] = score
   }
+
   renderItem = ({item, index}) => {
     return (
       <TouchableHighlight onPress={()=>this.toggleSelected(item, index)}
@@ -236,6 +252,7 @@ export default class SurveyPage2 extends Component {
       </TouchableHighlight>
     )
   }
+
   renderSelected = ({item, index}) => {
     return (
        <View
