@@ -24,12 +24,10 @@ import {Platform,
 import Button from 'apsl-react-native-button'
 import Header from './header'
 import { Actions } from 'react-native-router-flux';
-import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 import {insertSurvey} from '../databases/schemas'
 import realm from '../databases/schemas'
-var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
 var ImagePicker = require('react-native-image-picker')
-Translation.setConfig(ProviderTypes.Google, key,'ig');
+
 export default class Paper extends Component<{}> {
   constructor (props) {
     super (props)
@@ -755,7 +753,7 @@ export default class Paper extends Component<{}> {
     <View style={{flex:1.5, flexDirection:'row'}}>
       {this.state.submittable &&
         <View style={{flex:1.5, flexDirection:'row'}}>
-          <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1, marginLeft:10}}>
+          <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1}}>
             <Button isLoading={this.state.loading} style={{backgroundColor:'#27ae60', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}} onPress={()=>this.continue('save')}>Submit</Button>
           </View>
           <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1}}>

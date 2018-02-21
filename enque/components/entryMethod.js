@@ -16,12 +16,8 @@ import {
   TouchableHighlight,
   AsyncStorage,
 } from 'react-native';
-
-import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 import Header from './header'
 import { Actions } from 'react-native-router-flux'
-var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
-Translation.setConfig(ProviderTypes.Google, key,'ig');
 //  <PowerTranslator style={{width:100, height:100}} text={'Good morning'} />
 export default class EntryMethod extends Component<{}> {
   constructor (props) {

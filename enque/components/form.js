@@ -15,11 +15,8 @@ import Button from 'apsl-react-native-button'
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment'
 import Header from './header'
-import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 import {insertSurvey} from '../databases/schemas'
 import realm from '../databases/schemas'
-var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
-Translation.setConfig(ProviderTypes.Google, key,'ig');
 
 export default class Form extends Component<{}> {
   constructor (props) {

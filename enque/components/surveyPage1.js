@@ -12,11 +12,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Button from 'apsl-react-native-button'
-import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 import SurveyPage2 from './surveyPage2'
 import Header from './header'
-var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
-Translation.setConfig(ProviderTypes.Google, key,'ig')
+
 export default class SurveyPage1 extends Component<{}> {
   constructor (props) {
     super (props)

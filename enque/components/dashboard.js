@@ -6,14 +6,10 @@ import {
   View,
   FlatList,
 } from 'react-native';
-
-import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 import Header from './header'
 import {queryAll} from '../databases/schemas'
 import realm from '../databases/schemas'
 import moment from 'moment'
-var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
-Translation.setConfig(ProviderTypes.Google, key,'ig');
 //  <PowerTranslator style={{width:100, height:100}} text={'Good morning'} />
 export default class Dashboard extends Component<{}> {
   constructor (props) {

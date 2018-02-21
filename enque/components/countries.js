@@ -4,9 +4,6 @@ import Button from 'apsl-react-native-button'
 import { Actions } from 'react-native-router-flux';
 import Header from './header'
 import countryList from './countryList'
-import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
-var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
-Translation.setConfig(ProviderTypes.Google, key,'ig');
 
 export default class Countries extends Component<{}> {
   constructor (props) {

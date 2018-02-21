@@ -3,7 +3,6 @@ import {Platform,
   StyleSheet,
   Text,
   View,
-  Image,
   KeyboardAvoidingView,
   ScrollView,
   AsyncStorage,
@@ -14,8 +13,6 @@ import {Actions} from 'react-native-router-flux'
 import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 import {insertSubscriber} from '../databases/schemas'
 import realm from '../databases/schemas'
-var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
-Translation.setConfig(ProviderTypes.Google, key,'ig');
 
 export default class Subscribe extends Component<{}> {
   constructor (props) {

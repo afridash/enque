@@ -7,13 +7,9 @@ import {
   Image,
   StatusBar,
 } from 'react-native';
-
-import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
 import Button from 'apsl-react-native-button'
 import {Actions} from 'react-native-router-flux'
 
-var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
-Translation.setConfig(ProviderTypes.Google, key,'ig');
 //<PowerTranslator style={{width:100, height:100}} text={'Good morning'} />
 export default class Index extends Component<{}> {
   constructor (props) {

@@ -21,9 +21,6 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux'
 import Button from 'apsl-react-native-button'
-import { PowerTranslator, ProviderTypes, Translation } from 'react-native-power-translator';
-var key = 'AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo'
-Translation.setConfig(ProviderTypes.Google, key,'ig');
 
 //For the radio buttons on the second page of the survey
 var radio_props = [
