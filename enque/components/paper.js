@@ -752,12 +752,12 @@ export default class Paper extends Component<{}> {
       </View>
     <View style={{flex:1.5, flexDirection:'row'}}>
       {this.state.submittable &&
-        <View style={{flex:1.5, flexDirection:'row'}}>
+        <View style={{flex:1.5, flexDirection:'row', justifyContent:'space-between'}}>
           <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1}}>
-            <Button isLoading={this.state.loading} style={{backgroundColor:'#27ae60', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}} onPress={()=>this.continue('save')}>Submit</Button>
+            <Button isLoading={this.state.loading} style={{backgroundColor:'#27ae60', height:40, flex:1,  borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}} onPress={()=>this.continue('save')}>Submit</Button>
           </View>
           <View style={{alignItems:'center', justifyContent:'center', flexDirection:'row', flex:1}}>
-            <Button onPress={()=> this.editData()} style={{backgroundColor:'#3498db', height:40, width:100, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}}>Edit</Button>
+            <Button onPress={()=> this.editData()} style={{backgroundColor:'#3498db', flex:1, height:40, borderColor:'transparent', margin: 10}} textStyle={{fontSize: 18, color:'white'}}>Edit</Button>
           </View>
         </View>
       }
