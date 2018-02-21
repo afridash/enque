@@ -15,6 +15,7 @@ import {
   FlatList,
   TouchableHighlight,
   AsyncStorage,
+  StatusBar
 } from 'react-native';
 import Header from './header'
 import { Actions } from 'react-native-router-flux'
@@ -33,9 +34,9 @@ export default class EntryMethod extends Component<{}> {
   }
   render () {
     return (
-
         <View style={styles.container}>
           <Header noAdd={true} icon={true} />
+          <StatusBar backgroundColor={'#15354e'} barStyle='light-content' />
           <View style={styles.secondaryContainer}>
             <View style={{flex:1}}>
               <TouchableHighlight style={{flex:1}} underlayColor='transparent' onPress={Actions.survey}>
