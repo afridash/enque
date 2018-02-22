@@ -265,7 +265,7 @@ export default class SurveyPage2 extends Component {
         </View>
         <View style={styles.radioGroup}>
           <RadioForm
-            style={{flex:1, flexDirection:'row'}}
+            style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}
             animation={true}
             radio_props={radio_props}
             initial={0}

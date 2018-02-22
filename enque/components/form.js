@@ -171,11 +171,11 @@ export default class Form extends Component<{}> {
           </TouchableHighlight>
             <View style={styles.divider}>
               <Image source={require('../assets/images/loc.png')} style={styles.home}/>
-              <TextInput defaultValue={this.state.city} onChangeText={(text)=>this.setState({city:text})} style={{flex:1}} placeholder='City/Town'/>
+              <TextInput defaultValue={this.state.city} onChangeText={(text)=>this.setState({city:text})} style={styles.input} placeholder='City/Town'/>
             </View>
             <View style={styles.divider}>
               <Image source={require('../assets/images/age.png')} style={styles.home}/>
-              <TextInput defaultValue={this.state.age} onChangeText={(text)=>this.setState({age:text})} style={{flex:1}} placeholder='Age'/>
+              <TextInput defaultValue={this.state.age} onChangeText={(text)=>this.setState({age:text})} style={styles.input} placeholder='Age'/>
             </View>
 
             <View style={{flex:1,borderBottomWidth:0.5,flexDirection:'row', alignItems:'center', borderColor:'lightgrey'}}>
@@ -251,5 +251,10 @@ const styles = StyleSheet.create({
   },
   text:{
     fontSize: 20,
+    },
+    input:{
+      flex:1,
+      textAlign:'center',
+      height:45,
     },
 });

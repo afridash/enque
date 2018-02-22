@@ -1,5 +1,5 @@
 /*
-Author: Richard Igbiriki 
+Author: Richard Igbiriki
 */
 
 import React, { Component } from 'react';
@@ -84,8 +84,8 @@ export default class Side extends Component<{}> {
     return (
       <View style={styles.container}>
         <View style={styles.sdg}>
-          <TouchableHighlight onPress={()=>Actions.replace('sustainable')} style={{flex:1.5}}>
-            <View style={{flex:1, flexDirection:'row'}}>
+          <TouchableHighlight onPress={()=>Actions.replace('sustainable')} style={{flex:1.5, alignItems:'center', justifyContent:'center'}}>
+            <View style={{flex:1, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
               <Image source={require('../assets/images/sus.png')} resizeMode={'contain'} style={styles.sdgImage} />
             </View>
           </TouchableHighlight>
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     flex:1,
     borderColor:'#15354e',
     borderTopWidth:25,
-    borderBottomWidth:2,
+    borderBottomWidth:1,
   },
   sdgImage:{
     height:100,
@@ -133,7 +133,6 @@ const styles = StyleSheet.create({
     fontWeight:'400',
   },
   category: {
-    flex:0.5,
     flexDirection:'row',
     borderColor:'#15354e',
     padding:15,

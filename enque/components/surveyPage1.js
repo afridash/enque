@@ -31,7 +31,7 @@ export default class SurveyPage1 extends Component<{}> {
         ARE YOU AWARE OF THE SUSTAINABLE DEVELOPMENT GOALS
         OR 'GLOBAL GOALS' SIGNED BY 193 WORLD LEADERS AT THE UN IN 2015?
         </Text>
-        <View style={{flexDirection:'row'}}>
+        <View style={{flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
           <View style={{flexDirection:'row', margin:50}}>
             <Text style={{fontSize:20}}>YES </Text>
             <RadioButton
