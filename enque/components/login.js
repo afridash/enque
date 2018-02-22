@@ -24,7 +24,7 @@ export default class Login extends React.Component {
     }
   }
   login () {
-    if (this.state.password !== '') {
+    if (this.state.password !== '' && this.state.password === 'hack') {
       this.setState({isLoading:true})
       AsyncStorage.setItem('partner_id', this.state.password)
       return Actions.reset('drawer')
