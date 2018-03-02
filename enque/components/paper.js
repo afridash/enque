@@ -37,6 +37,8 @@ export default class Paper extends Component<{}> {
       beyondSecondary:'',
       user_id:'',
       partner_id:'',
+      country:'',
+      city:'',
       editData:false,
       someSecondary:'',
       finishedPrimary:'',
@@ -200,7 +202,9 @@ export default class Paper extends Component<{}> {
   async componentWillMount () {
     var partner_id = await AsyncStorage.getItem('partner_id')
     var user_id = await AsyncStorage.getItem('user_id')
-    this.setState({partner_id, user_id})
+    var country = await AsyncStorage.getItem('country')
+    var city = await AsyncStorage.getItem('city')
+    this.setState({partner_id, user_id, city, country})
     this.launchCamera()
   }
   componentDidMount () {
@@ -257,8 +261,10 @@ export default class Paper extends Component<{}> {
     this.getQ3()
   }
   getQ3 () {
-    var startLocation = this.state.returnedText.indexOf('Better')
-    var string = this.state.returnedText.substring(startLocation + 6)
+    var startLocation = this.state.returnedText.indexOf('5. GOT BETTER')
+    var string = this.state.returnedText.substring(startLocation + 13)
+    var endLocation = string.indexOf('Sustainable')
+    var string = string.substring(0, endLocation)
     var scores = string.split('\n')
     var g1 = this.checkCharacters( scores[1].substring( scores[1].indexOf(':') + 1 ).trim() )
     var g2 = this.checkCharacters ( scores[2].substring( scores[2].indexOf(':') + 1 ).trim() )
@@ -277,9 +283,9 @@ export default class Paper extends Component<{}> {
     })
   }
   getQ2 () {
-    var startLocation = this.state.returnedText.indexOf('17)')
-    var endLocation = this.state.returnedText.indexOf('3.')
-    var string = this.state.returnedText.substring(startLocation+3, endLocation)
+    var startLocation = this.state.returnedText.indexOf('family?')
+    var endLocation = this.state.returnedText.indexOf('3. Over')
+    var string = this.state.returnedText.substring(startLocation+7, endLocation)
     var scores = string.split("\n")
     var g1 = this.checkCharacters ( scores[1].substring( scores[1].indexOf(':') + 1 ).trim() )
     var g2 = this.checkCharacters ( scores[2].substring( scores[2].indexOf(':') + 1 ).trim() )
@@ -311,115 +317,60 @@ export default class Paper extends Component<{}> {
     return '1'
   }
   getQ1 () {
-    var startLocation = this.state.returnedText.indexOf('2015?')
-    var q1 = this.state.returnedText.substr(startLocation + 5, 5).trim()
-    this.setState({q1:q1.toLowerCase()})
+    var startLocation = this.state.returnedText.indexOf('2015? (Y/N)')
+    var q1 = this.state.returnedText.substr(startLocation + 11, 3).trim()
+    if (q1 === '7') q1 = 'Y'
+    if (q1.toLowerCase() === 'y') {
+        this.setState({q1:'yes'})
+    }else {
+      this.setState({q1:'no'})
+    }
+
   }
   getUserDetails () {
     this.parseGender ()
     this.parseEducation ()
     this.parseAge()
-    this.parseCountry()
-    this.parseState()
     this.parseDisability()
   }
   getDisabilityType () {
-    var physicalLocation = this.state.returnedText.indexOf('Physical')
-    var physical = this.state.returnedText.substr(physicalLocation+8, 5).trim()
-    if (physical.toLowerCase() === 'yes' ) {
-      this.setState({disability_type:'1'})
-    }else {
-      var visionLocation = this.state.returnedText.indexOf('Vision')
-      var vision = this.state.returnedText.substr(visionLocation+6, 5).trim()
-      if (vision.toLowerCase()) {
-        this.setState({disability_type:'2'})
-      }else {
-        var hearingLocation = this.state.returnedText.indexOf('Hearing')
-        var hearing = this.state.returnedText.substr(hearingLocation+7, 5).trim()
-        if (hearing.toLowerCase() === 'yes' ) {
-          this.setState({disability_type:'3'})
-        }else {
-          var speakingLocation = this.state.returnedText.indexOf('Speaking')
-          var speaking = this.state.returnedText.substr(speakingLocation+8, 5).trim()
-          if (speaking.toLowerCase() === 'yes' ) {
-            this.setState({disability_type:'4'})
-          }else {
-            this.setState({disability_type:'5'})
-          }
-        }
-      }
-    }
+    var location = this.state.returnedText.indexOf('OTHER:')
+    var physical = this.state.returnedText.substr(location+6, 3).trim()
+    this.setState({disability_type:physical})
   }
   parseDisability () {
-    var disabilityLocation = this.state.returnedText.indexOf('Disability: ')
-    var disability = this.state.returnedText.substr(disabilityLocation+11, 5).trim()
-    if (disability.toLowerCase() === 'yes') {
+    var disabilityLocation = this.state.returnedText.indexOf('N)')
+    var disability = this.state.returnedText.substr(disabilityLocation+2, 3).trim()
+    if (disability.toLowerCase() === 'y' || disability.toLowerCase() === '7') {
       this.getDisabilityType()
       this.setState({disability:'yes'})
     } else {
       this.setState({disability:'no', disability_type:'0'})
     }
   }
-  parseState () {
-    var stateLocation = this.state.returnedText.indexOf('State: ')
-    var remainder = this.state.returnedText.substr(stateLocation + 7)
-    var endLocation = remainder.indexOf(' ')
-    var state = remainder.substring(0, endLocation)
-    this.setState({state:state})
-  }
-  parseCountry () {
-    var countryLocation = this.state.returnedText.indexOf('Country ')
-    var remainder = this.state.returnedText.substr(countryLocation + 9)
-    var endLocation = remainder.indexOf(' ')
-    var country = remainder.substring(0, endLocation)
-    this.setState({country:country})
-  }
   parseAge () {
-      var ageLocation = this.state.returnedText.indexOf('Age:')
-      var age = this.state.returnedText.substr(ageLocation + 4, 3).trim()
+      var ageLocation = this.state.returnedText.indexOf('AGE')
+      var age = this.state.returnedText.substr(ageLocation + 3, 3).trim()
       this.setState({age:age})
   }
   parseGender () {
-    var maleLocation = this.state.returnedText.indexOf('Male')
-    var male = this.state.returnedText.substr(maleLocation + 4, 5).trim()
-    if (male.toLowerCase() === 'yes') {
+    var maleLocation = this.state.returnedText.indexOf(')')
+    var gender = this.state.returnedText.substr(maleLocation + 1, 3).trim()
+    if (gender.toLowerCase() === 'm') {
       this.setState({gender:'male'})
-    }else {
-      var femaleLocation = this.state.returnedText.indexOf('Female')
-      var female = this.state.returnedText.substr(femaleLocation + 6, 5)
-      if (female.toLowerCase() === 'yes') {
-          this.setState({gender:'female'})
-        } else {
-          this.setState({gender:''})
-        }
-      }
+    }else if (gender.toLowerCase() === 'f') {
+      this.setState({gender:'female'})
+    }else this.setState({gender:'other'})
   }
   parseEducation () {
-    var somePrimaryLocation = this.state.returnedText.indexOf('Some Primary')
-    var somePrimary = this.state.returnedText.substr(somePrimaryLocation+12, 5).trim()
-    if (somePrimary.toLowerCase() === 'yes') {
-      this.setState({education:'1', educationTitle:'Some Primary' })
+    var location = this.state.returnedText.indexOf('EDUCATION')
+    var education = this.state.returnedText.substr(location+9, 3).trim()
+    if (education === '') {
+      this.setState({education:'3'})
     }else {
-      var finishedPrimaryLocation = this.state.returnedText.indexOf('Finished Primary')
-      var finishedPrimary = this.state.returnedText.substr(finishedPrimaryLocation+16, 5).trim()
-      if (finishedPrimary.toLowerCase() === 'yes') {
-        this.setState({education:'2', educationTitle:'Finished Primary'})
-      }else {
-        var someSecondaryLocation = this.state.returnedText.indexOf('Finished Secondary')
-        var someSecondary = this.state.returnedText.substr(someSecondaryLocation+14, 5).trim()
-        if (someSecondary.toLowerCase() === 'yes') {
-          this.setState({education:'3', educationTitle:'Finished Secondary' })
-        }else {
-          var beyondSecondaryLocation = this.state.returnedText.indexOf('Beyond Secondary')
-          var beyondSecondary = this.state.returnedText.substr(beyondSecondaryLocation+18, 5).trim()
-          if (beyondSecondary.toLowerCase() === 'yes') {
-            this.setState({education:'4', educationTitle:' Beyond Secondary'})
-          }else {
-            this.setState({education:''})
-          }
-        }
-      }
+      this.setState({education:education})
     }
+
   }
   editData () {
     this.setState({editData:true})
@@ -702,11 +653,9 @@ export default class Paper extends Component<{}> {
             <View style={{flex:1}}>
               <Text style={styles.textListing}>Gender: {this.state.gender}</Text>
               <Text style={styles.textListing}>Age: {this.state.age}</Text>
-              <Text style={styles.textListing}>Education: {this.state.educationTitle}</Text>
+              <Text style={styles.textListing}>Education: {this.state.education}</Text>
               <Text style={styles.textListing}>Country: {this.state.country}</Text>
-              <Text style={styles.textListing}>State: {this.state.state}</Text>
               <Text style={styles.textListing}>City/Village: {this.state.city}</Text>
-              <Text style={styles.textListing}>Phone: {this.state.phone}</Text>
               <Text style={styles.textListing}>Disability: {this.state.disability}</Text>
               <Text style={styles.textListing}>Type: {this.state.disability_type}</Text>
               <Text style={{alignItems:'center', flexDirection:'row', justifyContent:'center', fontSize:18}}>Questions </Text>
@@ -776,7 +725,7 @@ async function checkForLabels(base64) {
                         },
                         "features": [
                             {
-                                "type": "TEXT_DETECTION"
+                                "type": "DOCUMENT_TEXT_DETECTION"
                             }
                         ]
                     }

@@ -46,7 +46,6 @@ export default class Form extends Component<{}> {
       disability:data.disability,
       city:data.city,
       country:data.country,
-      email:data.email,
     })
   }
   async checkInternet () {
