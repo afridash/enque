@@ -23,10 +23,15 @@ export default class Form extends Component<{}> {
     super (props)
     this.state = {
       translated:'',
-      country:'Country'
+      country:'Country',
+      partner_id:'',
+      user_id:''
     }
   }
-  componentWillMount () {
+  async componentWillMount () {
+    var partner_id = await AsyncStorage.getItem('partner_id')
+    var user_id = await AsyncStorage.getItem('user_id')
+    this.setState({partner_id, user_id})
     this.checkInternet()
     if (this.props.userInfo) {
       this.updateUserInfo()
@@ -72,8 +77,8 @@ export default class Form extends Component<{}> {
       data['city'] = this.state.city
       data['age'] = Number(this.state.age)
       data['country'] = this.state.country
-      data['partner_id'] = 'Afridash Inc'
-      data['user_id'] = 'Richard_igbiriki'
+      data['partner_id'] = this.state.partner_id
+      data['user_id'] = this.state.user_id
       data['start'] = Date.now()
       data['end'] = Date.now()
       data['method'] = 'online'

@@ -102,6 +102,7 @@ export default class Subscribe extends Component<{}> {
         </View>
         <View style={styles.buttonContainer}>
           <Button isLoading={this.state.isLoading} onPress={this.save} style={styles.buttonStyle} textStyle={{fontSize: 18, color:'white'}}>Subscribe</Button>
+          <Button onPress={Actions.entryMethod} style={styles.buttonStyle2} textStyle={{fontSize: 18, color:'white'}}>Skip</Button>
         </View>
       </View>
       </ScrollView>
@@ -133,6 +134,13 @@ const styles = StyleSheet.create({
     },
     buttonStyle:{
       backgroundColor:'#1eaaf1',
+      height:40,
+      width:100,
+      borderColor:'transparent',
+      margin: 10
+    },
+    buttonStyle2:{
+      backgroundColor:'#f44336',
       height:40,
       width:100,
       borderColor:'transparent',

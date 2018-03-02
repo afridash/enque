@@ -35,6 +35,8 @@ export default class Paper extends Component<{}> {
       launches: 0,
       somePrimary:'',
       beyondSecondary:'',
+      user_id:'',
+      partner_id:'',
       editData:false,
       someSecondary:'',
       finishedPrimary:'',
@@ -195,7 +197,10 @@ export default class Paper extends Component<{}> {
       ],
     }
   }
-  componentWillMount () {
+  async componentWillMount () {
+    var partner_id = await AsyncStorage.getItem('partner_id')
+    var user_id = await AsyncStorage.getItem('user_id')
+    this.setState({partner_id, user_id})
     this.launchCamera()
   }
   componentDidMount () {
@@ -316,9 +321,6 @@ export default class Paper extends Component<{}> {
     this.parseAge()
     this.parseCountry()
     this.parseState()
-    this.parseCity()
-    this.parseEmail()
-    this.parseNumber()
     this.parseDisability()
   }
   getDisabilityType () {
@@ -358,27 +360,6 @@ export default class Paper extends Component<{}> {
       this.setState({disability:'no', disability_type:'0'})
     }
   }
-  parseNumber () {
-    var phoneLocation = this.state.returnedText.indexOf('Number: ')
-    var remainder = this.state.returnedText.substr(phoneLocation + 8)
-    var endLocation = remainder.indexOf('\n')
-    var phone = remainder.substring(0, endLocation)
-    this.setState({phone:phone})
-  }
-  parseEmail () {
-    var cityLocation = this.state.returnedText.indexOf('Email: ')
-    var remainder = this.state.returnedText.substr(cityLocation + 7)
-    var endLocation = remainder.indexOf('\n')
-    var email = remainder.substring(0, endLocation)
-    this.setState({email:email})
-  }
-  parseCity () {
-    var cityLocation = this.state.returnedText.indexOf('Village: ')
-    var remainder = this.state.returnedText.substr(cityLocation + 9)
-    var endLocation = remainder.indexOf('\n')
-    var city = remainder.substring(0, endLocation)
-    this.setState({city:city})
-  }
   parseState () {
     var stateLocation = this.state.returnedText.indexOf('State: ')
     var remainder = this.state.returnedText.substr(stateLocation + 7)
@@ -387,7 +368,7 @@ export default class Paper extends Component<{}> {
     this.setState({state:state})
   }
   parseCountry () {
-    var countryLocation = this.state.returnedText.indexOf('Country: ')
+    var countryLocation = this.state.returnedText.indexOf('Country ')
     var remainder = this.state.returnedText.substr(countryLocation + 9)
     var endLocation = remainder.indexOf(' ')
     var country = remainder.substring(0, endLocation)
@@ -571,8 +552,8 @@ export default class Paper extends Component<{}> {
       data['city'] = this.state.city
       data['age'] = Number(this.state.age)
       data['country'] = this.state.country
-      data['partner_id'] = 'Afridash Inc'
-      data['user_id'] = 'Richard_igbiriki'
+      data['partner_id'] = this.state.partner_id
+      data['user_id'] = this.state.user_id
       data['start'] = Date.now()
       data['end'] = Date.now()
       data['method'] = 'online'
@@ -725,7 +706,6 @@ export default class Paper extends Component<{}> {
               <Text style={styles.textListing}>Country: {this.state.country}</Text>
               <Text style={styles.textListing}>State: {this.state.state}</Text>
               <Text style={styles.textListing}>City/Village: {this.state.city}</Text>
-              <Text style={styles.textListing}>Email: {this.state.email}</Text>
               <Text style={styles.textListing}>Phone: {this.state.phone}</Text>
               <Text style={styles.textListing}>Disability: {this.state.disability}</Text>
               <Text style={styles.textListing}>Type: {this.state.disability_type}</Text>
