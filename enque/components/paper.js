@@ -266,12 +266,55 @@ export default class Paper extends Component<{}> {
     var endLocation = string.indexOf('Sustainable')
     var string = string.substring(0, endLocation)
     var scores = string.split('\n')
-    var g1 = this.checkCharacters( scores[1].substring( scores[1].indexOf(':') + 1 ).trim() )
-    var g2 = this.checkCharacters ( scores[2].substring( scores[2].indexOf(':') + 1 ).trim() )
-    var g3 = this.checkCharacters ( scores[3].substring( scores[3].indexOf(':') + 1 ).trim() )
-    var g4 = this.checkCharacters ( scores[4].substring( scores[4].indexOf(':') + 1 ).trim() )
-    var g5 = this.checkCharacters ( scores[5].substring( scores[5].indexOf(':') + 1 ).trim() )
-    var g6 = this.checkCharacters ( scores[6].substring( scores[6].indexOf(':') + 1 ).trim() )
+
+    var a = scores.filter((a)=> a.includes('A:'))
+
+    var b = scores.filter((a)=> a.includes('B:'))
+
+    var c = scores.filter((a)=> a.includes('C:'))
+
+    var d = scores.filter((a)=> a.includes('D:'))
+
+    var e = scores.filter((a)=> a.includes('E:'))
+
+    var f = scores.filter((a)=> a.includes('F:'))
+
+    var g1, g2, g3, g4, g5, g6
+    if (a[0] !== undefined) {
+      g1 = this.checkCharacters ( a[0].substring( a[0].indexOf('A:') + 2 ).trim() )
+    } else {
+      g1=1
+    }
+
+    if (b[0] !== undefined) {
+       g2 = this.checkCharacters ( b[0].substring( b[0].indexOf('B:') + 2 ).trim() )
+    }else {
+      g2=1
+    }
+
+    if (c[0] !== undefined) {
+      g3 = this.checkCharacters ( c[0].substring( c[0].indexOf('C:') + 2 ).trim() )
+    }else {
+      g3=1
+    }
+
+     if (d[0] !== undefined) {
+       g4 = this.checkCharacters ( d[0].substring( d[0].indexOf('D:') + 2 ).trim() )
+     }else {
+       g4=1
+     }
+
+     if (e[0] !== undefined) {
+       g5 = this.checkCharacters ( e[0].substring( e[0].indexOf('E:') + 2 ).trim() )
+     }else {
+       g5=1
+     }
+
+     if (f[0] !== undefined) {
+       g6 = this.checkCharacters ( f[0].substring( f[0].indexOf('F:') + 2 ).trim() )
+     }else {
+       g6=1
+     }
 
     this.setState({
       s1:g1,
@@ -287,12 +330,54 @@ export default class Paper extends Component<{}> {
     var endLocation = this.state.returnedText.indexOf('3. Over')
     var string = this.state.returnedText.substring(startLocation+7, endLocation)
     var scores = string.split("\n")
-    var g1 = this.checkCharacters ( scores[1].substring( scores[1].indexOf(':') + 1 ).trim() )
-    var g2 = this.checkCharacters ( scores[2].substring( scores[2].indexOf(':') + 1 ).trim() )
-    var g3 = this.checkCharacters ( scores[3].substring( scores[3].indexOf(':') + 1 ).trim() )
-    var g4 = this.checkCharacters ( scores[4].substring( scores[4].indexOf(':') + 1 ).trim() )
-    var g5 = this.checkCharacters ( scores[5].substring( scores[5].indexOf(':') + 1 ).trim() )
-    var g6 = this.checkCharacters ( scores[6].substring( scores[6].indexOf(':') + 1 ).trim() )
+    var a = scores.filter((a)=> a.includes('A:'))
+
+    var b = scores.filter((a)=> a.includes('B:'))
+
+    var c = scores.filter((a)=> a.includes('C:'))
+
+    var d = scores.filter((a)=> a.includes('D:'))
+
+    var e = scores.filter((a)=> a.includes('E:'))
+
+    var f = scores.filter((a)=> a.includes('F:'))
+
+    var g1, g2, g3, g4, g5, g6
+    if (a[0] !== undefined) {
+      g1 = this.checkCharacters ( a[0].substring( a[0].indexOf('A:') + 2 ).trim() )
+    } else {
+      g1=1
+    }
+
+    if (b[0] !== undefined) {
+       g2 = this.checkCharacters ( b[0].substring( b[0].indexOf('B:') + 2 ).trim() )
+    }else {
+      g2=1
+    }
+
+    if (c[0] !== undefined) {
+      g3 = this.checkCharacters ( c[0].substring( c[0].indexOf('C:') + 2 ).trim() )
+    }else {
+      g3=1
+    }
+
+     if (d[0] !== undefined) {
+       g4 = this.checkCharacters ( d[0].substring( d[0].indexOf('D:') + 2 ).trim() )
+     }else {
+       g4=1
+     }
+
+     if (e[0] !== undefined) {
+       g5 = this.checkCharacters ( e[0].substring( e[0].indexOf('E:') + 2 ).trim() )
+     }else {
+       g5=1
+     }
+
+     if (f[0] !== undefined) {
+       g6 = this.checkCharacters ( f[0].substring( f[0].indexOf('F:') + 2 ).trim() )
+     }else {
+       g6=1
+     }
 
     if (g1 && g3 && g3 && g4 && g5 && g6) {
       this.setState({
@@ -307,9 +392,9 @@ export default class Paper extends Component<{}> {
     }
   }
   checkCharacters (char) {
-    if (char === 'Z' || char ==='z') return '7'
-    if (char === 'I' || char === 'i') return '1'
-    if (char === 'S') return '5'
+    if (char.toLowerCase() ==='z') return '7'
+    if (char.toLowerCase === 'i') return '1'
+    if (char.toLowerCase() === 's') return '5'
     if (char === '+' ) return '4'
     if (char.toLowerCase() === 'o') return '0'
     if (char.toLowerCase() === 'b') return '6'
@@ -365,7 +450,7 @@ export default class Paper extends Component<{}> {
   parseEducation () {
     var location = this.state.returnedText.indexOf('EDUCATION')
     var education = this.state.returnedText.substr(location+9, 3).trim()
-    if (education === '') {
+    if (education === '' || Number(education) === NaN) {
       this.setState({education:'3'})
     }else {
       this.setState({education:education})

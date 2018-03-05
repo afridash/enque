@@ -25,7 +25,8 @@ export default class Form extends Component<{}> {
       translated:'',
       country:'Country',
       partner_id:'',
-      user_id:''
+      user_id:'',
+      email:''
     }
   }
   async componentWillMount () {

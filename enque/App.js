@@ -74,14 +74,14 @@ export default class App extends React.Component {
                       <Scene key="entryMethod" component={EntryMethod} />
                       <Scene key="form"  component={Form}/>
                       <Scene key="subscribe"  component={Subscribe} />
-                      <Scene key="entryMethod" component={EntryMethod} />
+                      <Scene key="entryMethod" initial component={EntryMethod} />
                       <Scene key="dashboard"  component={Dashboard} />
                       <Scene key="myworld" component={MyWorld} />
                       <Scene key="sustainable" component={Sustainable} />
                       <Scene key='survey' component={SurveyPage1} />
                       <Scene key='survey2'  component={SurveyPage2} />
                       <Scene key="countries"  component={Countries} />
-                      <Scene key="papersurvey" initial component={PaperSurvey} />
+                      <Scene key="papersurvey"  component={PaperSurvey} />
                       <Scene key="paper"  component={Paper} />
                   </Scene>
                 </Drawer>

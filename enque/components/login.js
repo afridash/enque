@@ -28,7 +28,8 @@ export default class Login extends React.Component {
       modalVisible:false,
       partner:'Select Partner',
       partner_id:'',
-      user_id:''
+      user_id:'',
+      loading:true,
     }
     this.data = []
   }
@@ -37,13 +38,13 @@ export default class Login extends React.Component {
     if (partners) {
       var array = JSON.parse(partners)
       this.data = array
-      this.setState({data:array})
+      this.setState({data:array, loading:false})
     }else {
       let response = await fetch("https://api.myworld2030.org/partners/?key=partner-1151125$%3")
 
       let responseJson = await response.json()
       this.data = responseJson
-      this.setState({data:responseJson})
+      this.setState({data:responseJson, loading:false})
       AsyncStorage.setItem('partners', JSON.stringify(responseJson))
     }
 
@@ -95,12 +96,16 @@ export default class Login extends React.Component {
                   onChangeText={(text) => { this.searchPartners(text) }}
                 />
               </View>
-              <FlatList
-                data={this.state.data}
-                ItemSeparatorComponent={()=><View style={styles.separator}></View>}
-                renderItem={this._renderItem}
-                keyExtractor={this._keyExtractor}
-               />
+              {this.state.loading ?  <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                    <Text style={{textAlign:'center', fontSize:18}}>Loading...</Text>
+                  </View> :
+                <FlatList
+                  data={this.state.data}
+                  ItemSeparatorComponent={()=><View style={styles.separator}></View>}
+                  renderItem={this._renderItem}
+                  keyExtractor={this._keyExtractor}
+                 />
+               }
               </View>
             </View>
           </Modal>
@@ -126,8 +131,8 @@ export default class Login extends React.Component {
               <Image source={require('../assets/images/icon.png')} resizeMode={'contain'} style={styles.logo} />
             </View>
             <View style={styles.inputContainer}>
-              <TouchableHighlight onPress={()=>this.setState({modalVisible:true})} style={{flexDirection:'row', flex:0.5, justifyContent:'space-between', alignItems:'center', borderWidth:1, borderRadius:5, borderColor:'lightgrey'}}>
-                <View style={{flexDirection:'row'}} >
+              <TouchableHighlight onPress={()=>this.setState({modalVisible:true})} style={{flexDirection:'row', height:50, justifyContent:'space-between', alignItems:'center', borderWidth:1, borderRadius:5, borderColor:'lightgrey'}}>
+                <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}} >
                   <View style={{flex:1, flexDirection:'row',alignItems:'center'}}>
                     <Text style={{color:'white', fontSize:18, fontWeight:'500', padding:5}}>{this.state.partner}</Text>
                   </View>
@@ -192,6 +197,7 @@ const styles = StyleSheet.create({
    backgroundColor: 'white',
  },
  innerContainer: {
+   flex:1,
    marginTop:20
  },
  listItem:{
@@ -225,7 +231,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     alignItems:'flex-end',
-    tintColor:'grey',
+    tintColor:'white',
   },
   divider:{
     flex:1,
