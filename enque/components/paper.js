@@ -800,7 +800,7 @@ export default class Paper extends Component<{}> {
 }
 async function checkForLabels(base64) {
   return await
-        fetch('https://vision.googleapis.com/v1/images:annotate?key=AIzaSyCRBOQE2ZcuttQDxreNI1BbxBMDbX0XGEo', {
+        fetch('https://vision.googleapis.com/v1/images:annotate?key=GOOGLE_API_KEY', {
             method: 'POST',
             body: JSON.stringify({
                 "requests": [
